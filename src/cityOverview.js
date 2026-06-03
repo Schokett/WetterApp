@@ -5,7 +5,7 @@ async function fetchCurrentWeather() {
     console.log("Mein Key lautet live:", apiKey);
 
     const response = await fetch(
-      "https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=nagoya&lang=de",
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=nagoya&lang=de`,
     );
     const data = await response.json();
     return data;
@@ -16,7 +16,7 @@ async function fetchCurrentWeather() {
 async function fetchWeatherForecast() {
   try {
     const response = await fetch(
-      "https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=nagoya&days=1",
+      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=nagoya&days=1`,
     );
     const data = await response.json();
     return data;
