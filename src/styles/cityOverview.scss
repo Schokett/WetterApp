@@ -8,6 +8,10 @@
     background-color: transparent;
     border: none;
     filter: drop-shadow(1px 1px 2px black);
+
+    :hover {
+      cursor: pointer;
+    }
   }
   .button {
     color: $lightFontColor;
