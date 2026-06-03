@@ -3,13 +3,17 @@
 .action-buttons {
   display: flex;
   justify-content: space-between;
-  &__menu {
-    width: 64px;
-    height: 64px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    filter: drop-shadow(1px 1px 2px black);
   }
-  &__save {
-    width: 64px;
-    height: 64px;
+  .button {
+    color: $lightFontColor;
+    width: 34px;
+    height: 34px;
+    padding: 1rem;
   }
 }
 .current-wether {
