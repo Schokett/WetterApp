@@ -53,7 +53,7 @@ async function buildCurrentWether() {
   div.appendChild(spanLowestAndHighest);
 
   spanCity.innerText = apiDataCurrent.location.name;
-  spanTemperature.innerText = apiDataCurrent.current.temp_c + "°";
+  spanTemperature.innerText = `${Math.round(apiDataCurrent.current.temp_c)}°`;
   spanCondition.innerText = apiDataCurrent.current.condition.text;
   spanLowestAndHighest.innerText = `H:${Math.round(maxTemp)}° T:${Math.round(minTemp)}°`;
 
