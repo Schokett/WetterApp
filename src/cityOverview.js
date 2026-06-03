@@ -2,7 +2,6 @@
 async function fetchCurrentWeather() {
   try {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-    console.log("Mein Key lautet live:", apiKey);
 
     const response = await fetch(
       `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=nagoya&lang=de`,
@@ -15,6 +14,7 @@ async function fetchCurrentWeather() {
 }
 async function fetchWeatherForecast() {
   try {
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const response = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=nagoya&days=1`,
     );
