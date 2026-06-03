@@ -1,12 +1,18 @@
 $lightFontColor: white;
 $backgroundcolor: #8a9295;
 
+@mixin desktop-view {
+  @media (min-width: 600px) {
+    @content;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
 }
 body {
-  width: auto;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -14,11 +20,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 
   &__container {
-    width: 400px;
-    height: 900px;
     background-color: $backgroundcolor;
-    border-radius: 8px;
+    width: 100%;
+    min-height: 100vh;
+
+    @include desktop-view {
+      border-radius: 8px;
+      width: 400px;
+      height: 900px;
+    }
   }
 }
