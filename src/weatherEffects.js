@@ -5,7 +5,6 @@ let weatherEffect = null;
 let rainInterval = null;
 
 export function initWeatherBackground() {
-  // Auch hier direkt mit lesbarem Hex-String gestartet
   weatherEffect = VANTA.CLOUDS({
     el: "#weather-bg",
     THREE: THREE,
@@ -51,6 +50,39 @@ function stopRain() {
   if (container) container.innerHTML = "";
 }
 
+// === STERNE STEUERUNG ===
+function startStars() {
+  const container = document.getElementById("stars-container");
+  if (!container || container.children.length > 0) return;
+
+  const numberOfStars = 40;
+
+  for (let i = 0; i < numberOfStars; i++) {
+    const star = document.createElement("div");
+    star.classList.add("star");
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 70 + "%";
+
+    const size = Math.random() * 2 + 1 + "px";
+    star.style.width = size;
+    star.style.height = size;
+
+    const duration = Math.random() * 3 + 2 + "s";
+    const delay = Math.random() * 5 + "s";
+    star.style.setProperty("--duration", duration);
+    star.style.animationDelay = delay;
+
+    container.appendChild(star);
+  }
+}
+
+// HIER WAR DER FEHLER: Diese Funktion hatte im Code gefehlt!
+function stopStars() {
+  const container = document.getElementById("stars-container");
+  if (container) container.innerHTML = "";
+}
+
 export function updateWeatherBackground(weatherCode, hour) {
   if (!weatherEffect) return;
 
@@ -58,11 +90,11 @@ export function updateWeatherBackground(weatherCode, hour) {
   // hour = 6; // 6 Uhr morgens (Sunrise)
   // hour = 12; // 12 Uhr mittags (Day)
   // hour = 19; // 19 Uhr abends (Sunset)
-  hour = 23; // 23 Uhr nachts (Night)
+  // hour = 23; // 23 Uhr nachts (Night)
   // ========================================================
 
   stopRain();
-
+  stopStars();
   let timeOfDay = "day";
   if (hour >= 22 || hour < 5) {
     timeOfDay = "night";
@@ -124,6 +156,7 @@ export function updateWeatherBackground(weatherCode, hour) {
           sunColor: "#0ad4e2",
           speed: 0.4,
         });
+        startStars();
         break;
 
       case "sunrise":
