@@ -11,7 +11,7 @@ async function fetchWeatherData(type) {
     const queryParams = type === "forecast" ? "&days=1" : "&lang=de";
 
     const response = await fetch(
-      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=hennstedt${queryParams}`,
+      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=nagoya${queryParams}`,
     );
     const data = await response.json();
     return data;
