@@ -12,6 +12,7 @@ $backgroundcolor: #8a9295;
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 body {
   font-family: $primaryFontFamily;
@@ -24,37 +25,21 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: $backgroundcolor;
 
   &__container {
-    background-color: $backgroundcolor;
+    background-color: transparent;
     width: 100%;
     min-height: 100vh;
+    position: relative;
+    overflow: hidden;
 
     @include desktop-view {
       border-radius: 8px;
       width: 400px;
       height: 900px;
       min-height: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
   }
-}
-
-//loadingscreen
-.loading-overlay {
-  display: none;
-}
-.screen__container.is-loading .loading-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-.screen__container.is-loading .action-buttons,
-.screen__container.is-loading .current-wether {
-  display: none;
-}
-.screen__container.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

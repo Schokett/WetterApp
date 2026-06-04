@@ -1,0 +1,50 @@
+//Vanta-Backgroud
+#weather-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transition: filter 1s ease;
+}
+.action-buttons,
+.current-wether,
+.loading-overlay {
+  position: relative;
+  z-index: 2;
+}
+#rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.drop {
+  position: absolute;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+  width: 1px;
+  height: 60px;
+  opacity: 0.7;
+  animation: fall linear infinite;
+}
+
+.screen__container.is-rainy #weather-bg {
+  filter: brightness(1.4) saturate(0.3) contrast(1.2);
+  transition: filter 1s ease; /* Schöner, weicher Übergang */
+}
+
+/* Die Fall-Animation */
+@keyframes fall {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}

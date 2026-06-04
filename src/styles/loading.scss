@@ -91,3 +91,22 @@
     transform: scale(1.5);
   }
 }
+//loadingscreen
+.loading-overlay {
+  display: none;
+}
+.screen__container.is-loading .loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.screen__container.is-loading .action-buttons,
+.screen__container.is-loading .current-wether {
+  display: none;
+}
+.screen__container.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

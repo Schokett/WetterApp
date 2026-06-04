@@ -1,3 +1,8 @@
+import { initWeatherBackground, updateWeatherBackground } from "./weatherEffects.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  initWeatherBackground();
+});
 // fetch
 async function fetchWeatherData(type) {
   try {
@@ -6,7 +11,7 @@ async function fetchWeatherData(type) {
     const queryParams = type === "forecast" ? "&days=1" : "&lang=de";
 
     const response = await fetch(
-      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=nagoya${queryParams}`,
+      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=nagasaki${queryParams}`,
     );
     const data = await response.json();
     return data;
@@ -18,11 +23,20 @@ async function fetchWeatherData(type) {
 // Build Framwork CurrentWether
 async function buildCurrentWether() {
   const currentWetherEl = document.querySelector(".current-wether");
+  const screenEL = document.querySelector(".screen__container");
 
   toggleLoading(true);
   try {
     const apiDataCurrent = await fetchWeatherData("current");
     const apiDataForecast = await fetchWeatherData("forecast");
+
+    // 1. Uhrzeit und Wetter-Text extrahieren
+    const localTimeHTML = apiDataCurrent.location.localtime;
+    const timePart = localTimeHTML.split(" ")[1];
+    const currentHour = parseInt(timePart.split(":")[0]);
+    const weatherCode = apiDataCurrent.current.condition.code;
+    updateWeatherBackground(weatherCode, currentHour);
+
     const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
     const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
 
