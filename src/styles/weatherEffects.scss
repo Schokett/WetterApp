@@ -1,8 +1,3 @@
-/* ==========================================================================
-   1. HINTERGRUND-EBENEN (GEORDNET VON HINTEN NACH VORNE)
-   ========================================================================== */
-
-/* Ebene 1: Die Vanta-Wolken bilden das Fundament */
 #weather-bg {
   position: absolute;
   top: 0;
@@ -13,7 +8,6 @@
   transition: filter 0.8s ease;
 }
 
-/* Ebene 2: Die Sterne liegen dezent über den Wolken */
 #stars-container {
   position: absolute;
   top: 0;
@@ -22,34 +16,34 @@
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-  z-index: 2; /* Eindeutig auf 2 gesetzt! */
-  background: transparent !important;
+  z-index: 2;
 }
 
-/* Ebene 3: Der Regen fällt vor den Wolken und vor den Sternen */
 #rain-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3; /* Vor allem anderen Hintergrund-Kram */
+  z-index: 3;
   overflow: hidden;
   pointer-events: none;
 }
 
-/* Ebene 10: Deine Wetterdaten und Schriften ganz im Vordergrund */
 .action-buttons,
+.action-buttons.button,
 .current-weather,
-.current-wether, /* Tippfehler-Sicherung aus deinem HTML */
 .loading-overlay {
   position: relative;
   z-index: 10;
 }
-
-/* ==========================================================================
-   2. EFFEKTE & ANIMATIONEN
-   ========================================================================== */
+.action-buttons button {
+  background-color: transparent;
+  border: none;
+  filter: drop-shadow(1px 1px 2px black);
+  cursor: pointer;
+  color: white;
+}
 
 /* Regen-Tropfen */
 .drop {

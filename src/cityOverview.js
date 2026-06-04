@@ -22,7 +22,7 @@ async function fetchWeatherData(type) {
 
 // Build Framwork CurrentWether
 async function buildCurrentWether() {
-  const currentWetherEl = document.querySelector(".current-wether");
+  const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
   toggleLoading(true);
@@ -41,19 +41,19 @@ async function buildCurrentWether() {
     const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
 
     const div = document.createElement("div");
-    div.classList.add("current-wether");
+    div.classList.add("current-weather");
 
     const spanCity = document.createElement("span");
-    spanCity.classList.add("current-wether__city");
+    spanCity.classList.add("current-weather__city");
 
     const spanTemperature = document.createElement("span");
-    spanTemperature.classList.add("current-wether__temperature");
+    spanTemperature.classList.add("current-weather__temperature");
 
     const spanCondition = document.createElement("span");
-    spanCondition.classList.add("current-wether__condition", "small");
+    spanCondition.classList.add("current-weather__condition", "small");
 
     const spanLowestAndHighest = document.createElement("span");
-    spanLowestAndHighest.classList.add("current-wether__lowest-and-highest", "small");
+    spanLowestAndHighest.classList.add("current-weather__lowest-and-highest", "small");
 
     div.appendChild(spanCity);
     div.appendChild(spanTemperature);

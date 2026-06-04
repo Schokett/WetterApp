@@ -3,13 +3,16 @@
 .action-buttons {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  z-index: 10;
 
   button {
     background-color: transparent;
     border: none;
+    padding: 1rem;
     filter: drop-shadow(1px 1px 2px black);
 
-    :hover {
+    &:hover {
       cursor: pointer;
     }
   }
@@ -17,12 +20,13 @@
     color: $lightFontColor;
     width: 34px;
     height: 34px;
-    padding: 1rem;
   }
 }
-.current-wether {
+.current-weather {
   height: 200px;
   display: flex;
+  position: relative;
+  z-index: 10;
   flex-direction: column;
   justify-content: center;
   align-items: center;
