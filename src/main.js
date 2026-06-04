@@ -4,3 +4,4 @@ import "./styles/loading.scss";
 import "./styles/weatherEffects.scss";
 import * as cityOverview from "./cityOverview.js";
 import * as weatherEffects from "./weatherEffects.js";
+import * as toggleLoading from "./toggleLoading.js";
