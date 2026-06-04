@@ -4,7 +4,7 @@ $lightFontColor: white;
 $backgroundcolor: #8a9295;
 
 @mixin desktop-view {
-  @media (min-width: 600px) {
+  @media (min-width: 700px) {
     @content;
   }
 }
@@ -32,7 +32,7 @@ body {
     width: 100%;
     min-height: 100vh;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
 
     @include desktop-view {
       width: 400px;
