@@ -6,3 +6,4 @@ import * as cityOverview from "./cityOverview.js";
 import * as weatherEffects from "./weatherEffects.js";
 import * as toggleLoading from "./toggleLoading.js";
 import * as apiFetch from "./apiFetch.js";
+import * as weatherApp from "./weatherApp.js";

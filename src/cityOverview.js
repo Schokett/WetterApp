@@ -1,30 +1,12 @@
-import { initWeatherBackground, updateWeatherBackground } from "./weatherEffects.js";
-import { toggleLoading } from "./toggleLoading.js";
-import { fetchWeatherData } from "./apiFetch.js";
-
-document.addEventListener("DOMContentLoaded", () => {
-  initWeatherBackground();
-});
+import { fetchWeatherData, getlocationData } from "./apiFetch.js";
 
 // Build Framwork CurrentWether
-async function buildCurrentWether() {
+export async function buildCurrentWether() {
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
-  toggleLoading(true);
   try {
-    const apiDataCurrent = await fetchWeatherData("current");
-    const apiDataForecast = await fetchWeatherData("forecast");
-
-    // 1. Uhrzeit und Wetter-Text extrahieren
-    const localTimeHTML = apiDataCurrent.location.localtime;
-    const timePart = localTimeHTML.split(" ")[1];
-    const currentHour = parseInt(timePart.split(":")[0]);
-    const weatherCode = apiDataCurrent.current.condition.code;
-    updateWeatherBackground(weatherCode, currentHour);
-
-    const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
-    const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
+    const weather = await getlocationData();
 
     const div = document.createElement("div");
     div.classList.add("current-weather");
@@ -46,17 +28,14 @@ async function buildCurrentWether() {
     div.appendChild(spanCondition);
     div.appendChild(spanLowestAndHighest);
 
-    spanCity.innerText = apiDataCurrent.location.name;
-    spanTemperature.innerText = `${Math.round(apiDataCurrent.current.temp_c)}°`;
-    spanCondition.innerText = apiDataCurrent.current.condition.text;
-    spanLowestAndHighest.innerText = `H:${Math.round(maxTemp)}° T:${Math.round(minTemp)}°`;
+    spanCity.innerText = weather.cityName;
+    spanTemperature.innerText = `${weather.temp}°`;
+    spanCondition.innerText = weather.conditionText;
+    spanLowestAndHighest.innerText = `H:${weather.maxTemp}° T:${weather.minTemp}°`;
 
     currentWetherEl.appendChild(div);
   } catch (error) {
     screenEL.innerHTML = "<p>Fehler beim Laden der Wetterdaten.</p>";
     console.log(error);
-  } finally {
-    toggleLoading(false);
   }
 }
-buildCurrentWether();
