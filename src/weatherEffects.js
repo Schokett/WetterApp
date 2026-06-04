@@ -5,13 +5,14 @@ let weatherEffect = null;
 let rainInterval = null;
 
 export function initWeatherBackground() {
+  // Auch hier direkt mit lesbarem Hex-String gestartet
   weatherEffect = VANTA.CLOUDS({
     el: "#weather-bg",
     THREE: THREE,
-    skyColor: 0x3a7bd5,
-    cloudColor: 0xddf0ff,
-    lightColor: 0xffffff,
-    sunColor: 0xffffff,
+    skyColor: "#3a7bd5",
+    cloudColor: "#ddf0ff",
+    lightColor: "#ffffff",
+    sunColor: "#ffffff",
     speed: 1.0,
   });
 
@@ -21,6 +22,7 @@ export function initWeatherBackground() {
     }, 100);
   }
 }
+
 function startRain() {
   const container = document.getElementById("rain-container");
   if (!container || rainInterval) return;
@@ -28,7 +30,6 @@ function startRain() {
   rainInterval = setInterval(() => {
     const drop = document.createElement("div");
     drop.classList.add("drop");
-
     drop.style.left = Math.random() * 100 + "%";
 
     const duration = Math.random() * 0.5 + 0.5;
@@ -53,6 +54,13 @@ function stopRain() {
 export function updateWeatherBackground(weatherCode, hour) {
   if (!weatherEffect) return;
 
+  // === NUR ZUM TESTEN: EINFREIEREN DER UHRZEIT ===
+  // hour = 6; // 6 Uhr morgens (Sunrise)
+  // hour = 12; // 12 Uhr mittags (Day)
+  // hour = 19; // 19 Uhr abends (Sunset)
+  hour = 23; // 23 Uhr nachts (Night)
+  // ========================================================
+
   stopRain();
 
   let timeOfDay = "day";
@@ -71,23 +79,34 @@ export function updateWeatherBackground(weatherCode, hour) {
 
   const isStormy = (weatherCode >= 1273 && weatherCode <= 1282) || weatherCode === 1087;
   const container = document.querySelector(".screen__container");
+
+  const setVantaOptions = (options) => {
+    const converted = { ...options };
+    if (options.skyColor) converted.skyColor = parseInt(options.skyColor.replace("#", "0x"));
+    if (options.cloudColor) converted.cloudColor = parseInt(options.cloudColor.replace("#", "0x"));
+    if (options.lightColor) converted.lightColor = parseInt(options.lightColor.replace("#", "0x"));
+    if (options.sunColor) converted.sunColor = parseInt(options.sunColor.replace("#", "0x"));
+    weatherEffect.setOptions(converted);
+  };
+
   if (isRainy || isStormy) {
+    if (container) container.classList.add("is-rainy");
     const isDaytimeRegen = hour >= 5 && hour < 18;
 
     if (isDaytimeRegen) {
-      weatherEffect.setOptions({
-        skyColor: 0x556270,
-        cloudColor: 0x8a9ba8,
-        lightColor: 0x999999,
-        sunColor: isStormy ? 0xd9e5ff : 0xffffff,
+      setVantaOptions({
+        skyColor: "#556270",
+        cloudColor: "#8a9ba8",
+        lightColor: "#999999",
+        sunColor: isStormy ? "#d9e5ff" : "#ffffff",
         speed: 0.6,
       });
     } else {
-      weatherEffect.setOptions({
-        skyColor: 0x1f242c,
-        cloudColor: 0x808a96,
-        lightColor: 0xaaaaaa,
-        sunColor: isStormy ? 0x99aacc : 0x333333,
+      setVantaOptions({
+        skyColor: "#1f242c",
+        cloudColor: "#808a96",
+        lightColor: "#aaaaaa",
+        sunColor: isStormy ? "#99aacc" : "#333333",
         speed: 0.5,
       });
     }
@@ -95,44 +114,45 @@ export function updateWeatherBackground(weatherCode, hour) {
     startRain();
   } else {
     if (container) container.classList.remove("is-rainy");
+
     switch (timeOfDay) {
       case "night":
-        weatherEffect.setOptions({
-          skyColor: 0x060c17,
-          cloudColor: 0x1c2d42,
-          lightColor: 0x223344,
-          sunColor: 0x778899,
+        setVantaOptions({
+          skyColor: "#617186",
+          cloudColor: "#3080a5",
+          lightColor: "#1a2636",
+          sunColor: "#0ad4e2",
           speed: 0.4,
         });
         break;
 
       case "sunrise":
-        weatherEffect.setOptions({
-          skyColor: 0xff7e5f,
-          cloudColor: 0xfeb47b,
-          lightColor: 0xffd1b3,
-          sunColor: 0xfffcfa,
+        setVantaOptions({
+          skyColor: "#7A8EC3",
+          cloudColor: "#aea6c3",
+          lightColor: "#cabeb4",
+          sunColor: "#FF8C42",
           speed: 0.8,
         });
         break;
 
       case "sunset":
-        weatherEffect.setOptions({
-          skyColor: 0xe65c00,
-          cloudColor: 0x4f2649,
-          lightColor: 0xff7a00,
-          sunColor: 0xf9d423,
+        setVantaOptions({
+          skyColor: "#7aa2c3",
+          cloudColor: "#bab4c7",
+          lightColor: "#8908f1",
+          sunColor: "#FF8C42",
           speed: 0.7,
         });
         break;
 
       case "day":
       default:
-        weatherEffect.setOptions({
-          skyColor: 0x3a7bd5,
-          cloudColor: 0xddf0ff,
-          lightColor: 0xffffff,
-          sunColor: 0xffffff,
+        setVantaOptions({
+          skyColor: "#6299e6",
+          cloudColor: "#ddf0ff",
+          lightColor: "#00fa70",
+          sunColor: "#708f75",
           speed: 1.0,
         });
         break;
