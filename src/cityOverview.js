@@ -92,7 +92,8 @@ export async function buildForecastWeather() {
       spanTime.innerText = cutTime;
     }
     imgPicture.src = `https:${hour.condition.icon}`;
-    spanTemperature.innerText = `${hour.temp_c}°C`;
+    const tempRoundOff = Math.floor(hour.temp_c);
+    spanTemperature.innerText = `${tempRoundOff}°C`;
   });
 
   // spanTime.innerText = "jetzt";
