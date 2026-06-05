@@ -59,30 +59,45 @@ export async function buildForecastWeather() {
 
   const p = document.createElement("p");
   p.classList.add("forecast-weather__description");
+  forecastWeatherEL.appendChild(p);
+  p.innerText = weather.forecastDescription;
 
   const divForecast = document.createElement("div");
   divForecast.classList.add("forecast-weather__hour-forecast");
+  forecastWeatherEL.appendChild(divForecast);
 
-  const divView = document.createElement("div");
-  divView.classList.add("forecast-weather__hour-view");
+  //Schleife zum durchlaufen der 24 Stunden
 
-  const spanTime = document.createElement("span");
-  spanTime.classList.add("forecast-weather__time");
+  weatherHours.hourData24h.forEach((hour, index) => {
+    const divView = document.createElement("div");
+    divView.classList.add("forecast-weather__hour-view");
+    divForecast.appendChild(divView);
 
-  const imgPicture = document.createElement("img");
-  imgPicture.classList.add("forecast-weather__picture");
+    const spanTime = document.createElement("span");
+    spanTime.classList.add("forecast-weather__time");
 
-  const spanTemperature = document.createElement("span");
-  spanTemperature.classList.add("forecast-weather__temperature");
+    const imgPicture = document.createElement("img");
+    imgPicture.classList.add("forecast-weather__picture");
 
-  forecastWeatherEL.append(p, divForecast, divView);
-  divView.append(spanTime, imgPicture, spanTemperature);
+    const spanTemperature = document.createElement("span");
+    spanTemperature.classList.add("forecast-weather__temperature");
 
-  p.innerText = weather.forecastDescription;
-  spanTime.innerText = "jetzt";
-  imgPicture.src = weatherHours.hourData24h[0].condition.icon;
-  spanTemperature.innerText = weatherHours.hourData24h[0].temp_c;
+    divView.append(spanTime, imgPicture, spanTemperature);
 
-  // console.log(weather);
-  console.log(weatherHours.hourData24h);
+    if (index === 0) {
+      spanTime.innerText = "Jetzt";
+    } else {
+      const fullTime = hour.time.split(" ")[1];
+      const cutTime = fullTime.split(":")[0] + " Uhr";
+      spanTime.innerText = cutTime;
+    }
+    imgPicture.src = `https:${hour.condition.icon}`;
+    spanTemperature.innerText = `${hour.temp_c}°C`;
+  });
+
+  // spanTime.innerText = "jetzt";
+  // imgPicture.src = weatherHours.hourData24h[0].condition.icon;
+  // spanTemperature.innerText = weatherHours.hourData24h[0].temp_c;
+
+  console.log(forecastWeatherEL);
 }
