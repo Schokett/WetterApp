@@ -19,6 +19,7 @@ body {
   width: 100%;
   min-height: 100vh;
   background-color: #c5c7ca;
+  color: $lightFontColor;
 }
 .screen {
   display: flex;
@@ -33,6 +34,10 @@ body {
     min-height: 100vh;
     position: relative;
     overflow: auto;
+
+    .inline {
+      margin: 0 1rem 0 1rem;
+    }
 
     @include desktop-view {
       width: 400px;
