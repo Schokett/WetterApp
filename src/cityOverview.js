@@ -45,11 +45,44 @@ export async function buildCurrentWether() {
   }
 }
 
-async function buildForecastWeather() {
-  const descriptionEL = document.querySelector(".forecast-weather__description");
-  const weather = await getForecastWeather();
+// export async function buildForecastWeatherDescription() {
+//   const descriptionEL = document.querySelector(".forecast-weather__description");
+//   const weather = await getForecastWeather();
 
-  descriptionEL.innerText = weather.forecastDescription;
+//   descriptionEL.innerText = weather.forecastDescription;
+// }
+
+export async function buildForecastWeather() {
+  const weather = await getForecastWeather();
+  const weatherHours = await getForecastHours();
+  const forecastWeatherEL = document.querySelector(".forecast-weather");
+
+  const p = document.createElement("p");
+  p.classList.add("forecast-weather__description");
+
+  const divForecast = document.createElement("div");
+  divForecast.classList.add("forecast-weather__hour-forecast");
+
+  const divView = document.createElement("div");
+  divView.classList.add("forecast-weather__hour-view");
+
+  const spanTime = document.createElement("span");
+  spanTime.classList.add("forecast-weather__time");
+
+  const imgPicture = document.createElement("img");
+  imgPicture.classList.add("forecast-weather__picture");
+
+  const spanTemperature = document.createElement("span");
+  spanTemperature.classList.add("forecast-weather__temperature");
+
+  forecastWeatherEL.append(p, divForecast, divView);
+  divView.append(spanTime, imgPicture, spanTemperature);
+
+  p.innerText = weather.forecastDescription;
+  spanTime.innerText = "jetzt";
+  imgPicture.src = weatherHours.hourData24h[0].condition.icon;
+  spanTemperature.innerText = weatherHours.hourData24h[0].temp_c;
+
+  // console.log(weather);
+  console.log(weatherHours.hourData24h);
 }
-buildForecastWeather();
-//stunden anzeigen: apiDataForecast.forecast.forecastday[0].hour

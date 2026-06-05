@@ -45,7 +45,7 @@ export async function getForecastWeather() {
   const apiDataForecast = await fetchWeatherData({ type: "forecast" });
   const weatherConditonData = apiDataForecast.forecast.forecastday[0].day.condition.text;
   const weatherWindData = apiDataForecast.forecast.forecastday[0].day.maxwind_kph;
-  // console.log("Heute", weatherConditonData, ".", "Wind bis zu", weatherWindData, "km/h.");
+
   const forecastDescription = `Heute ${weatherConditonData}. Wind bis zu ${weatherWindData} km/h.`;
   return { forecastDescription };
 }
@@ -73,6 +73,8 @@ export async function getForecastHours() {
   hourData24hFusion = [...hourData24hFusion, ...weatherHoursNextDayData];
 
   const hourData24h = hourData24hFusion.slice(0, 24);
-  console.log(hourData24h);
+
+  return {
+    hourData24h,
+  };
 }
-getForecastHours();
