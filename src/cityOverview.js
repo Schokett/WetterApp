@@ -83,9 +83,16 @@ export async function buildForecastWeather() {
       const cutTime = fullTime.split(":")[0] + " Uhr";
       spanTime.innerText = cutTime;
     }
-    imgPicture.src = `https:${hour.condition.icon}`;
-    const tempRoundOff = Math.floor(hour.temp_c);
-    spanTemperature.innerText = `${tempRoundOff}°C`;
+    imgPicture.src = hour?.condition?.icon
+      ? `https:${hour.condition.icon}`
+      : "path/to/default-weather-icon.png";
+
+    if (hour?.temp_c !== undefined && hour?.temp_c !== null) {
+      const tempRoundOff = Math.floor(hour.temp_c);
+      spanTemperature.innerText = `${tempRoundOff}°C`;
+    } else {
+      spanTemperature.innerText = "--°C";
+    }
   });
 
   console.log(forecastWeatherEL);
