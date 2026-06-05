@@ -1,13 +1,12 @@
 import { updateWeatherBackground } from "./weatherEffects.js";
 // fetch
-export async function fetchWeatherData(type, location = "Nagoya") {
+export async function fetchWeatherData({ type = "forecast", location = "hamburg", day = 1 } = {}) {
   try {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const queryParams = type === "forecast" ? "&days=0" : "";
+    const queryParams = type === "forecast" ? `&days=${day}` : "";
 
     const response = await fetch(
-      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${location}&lang=de`,
+      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${location}${queryParams}&lang=de`,
     );
     const data = await response.json();
     return data;
@@ -16,8 +15,8 @@ export async function fetchWeatherData(type, location = "Nagoya") {
   }
 }
 export async function locationDetailsWeatherEffects() {
-  const apiDataCurrent = await fetchWeatherData("current");
-  const apiDataForecast = await fetchWeatherData("forecast");
+  const apiDataCurrent = await fetchWeatherData({ type: "current" });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
 
   // 1. Uhrzeit und Wetter-Text extrahieren
   const localTimeHTML = apiDataCurrent.location.localtime;
@@ -28,8 +27,8 @@ export async function locationDetailsWeatherEffects() {
 }
 
 export async function getlocationData() {
-  const apiDataCurrent = await fetchWeatherData("current");
-  const apiDataForecast = await fetchWeatherData("forecast");
+  const apiDataCurrent = await fetchWeatherData({ type: "current" });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
 
   const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
   const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
@@ -43,7 +42,7 @@ export async function getlocationData() {
   };
 }
 export async function getForecastWeather() {
-  const apiDataForecast = await fetchWeatherData("forecast");
+  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
   const weatherConditonData = apiDataForecast.forecast.forecastday[0].day.condition.text;
   const weatherWindData = apiDataForecast.forecast.forecastday[0].day.maxwind_kph;
   // console.log("Heute", weatherConditonData, ".", "Wind bis zu", weatherWindData, "km/h.");
@@ -52,8 +51,28 @@ export async function getForecastWeather() {
 }
 
 export async function getForecastHours() {
-  const apiDataForecast = await fetchWeatherData("forecast");
-  const weatherHoursData = apiDataForecast.forecast.forecastday[0];
-  console.log(weatherHoursData);
+  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
+  const weatherHoursData = apiDataForecast.forecast.forecastday[0].hour;
+
+  //holt Eintrag der aktuell ist
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const currentHourWeatherData = weatherHoursData.find((hour) => {
+    return hour.time_epoch <= currentTimestamp && hour.time_epoch + 3600 > currentTimestamp;
+  });
+
+  //alle Einträge die Größer sind als der aktuelle
+  const forecastHourWeatherData = weatherHoursData.filter((hour) => {
+    return hour.time_epoch > currentHourWeatherData.time_epoch;
+  });
+
+  //vom nächsten tag einträge holen bis ingesamt [23] Einträge vorhanden sind
+  const apiDataForecastNextDay = await fetchWeatherData({ type: "forecast", day: 2 });
+  const weatherHoursNextDayData = apiDataForecastNextDay.forecast.forecastday[1].hour;
+
+  let hourData24hFusion = [currentHourWeatherData, ...forecastHourWeatherData];
+  hourData24hFusion = [...hourData24hFusion, ...weatherHoursNextDayData];
+
+  const hourData24h = hourData24hFusion.slice(0, 24);
+  console.log(hourData24h);
 }
 getForecastHours();
