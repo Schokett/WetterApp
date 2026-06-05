@@ -1,4 +1,9 @@
-import { fetchWeatherData, getlocationData } from "./apiFetch.js";
+import {
+  fetchWeatherData,
+  getlocationData,
+  getForecastWeather,
+  getForecastHours,
+} from "./apiFetch.js";
 
 // Build Framwork CurrentWether
 export async function buildCurrentWether() {
@@ -39,3 +44,12 @@ export async function buildCurrentWether() {
     console.log(error);
   }
 }
+
+async function buildForecastWeather() {
+  const descriptionEL = document.querySelector(".forecast-weather__description");
+  const weather = await getForecastWeather();
+
+  descriptionEL.innerText = weather.forecastDescription;
+}
+buildForecastWeather();
+//stunden anzeigen: apiDataForecast.forecast.forecastday[0].hour

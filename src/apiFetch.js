@@ -4,10 +4,10 @@ export async function fetchWeatherData(type, location = "Nagoya") {
   try {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
-    const queryParams = type === "forecast" ? "&days=1" : "&lang=de";
+    const queryParams = type === "forecast" ? "&days=0" : "";
 
     const response = await fetch(
-      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${location}${queryParams}`,
+      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${location}&lang=de`,
     );
     const data = await response.json();
     return data;
@@ -15,7 +15,6 @@ export async function fetchWeatherData(type, location = "Nagoya") {
     console.log("message:", error);
   }
 }
-
 export async function locationDetailsWeatherEffects() {
   const apiDataCurrent = await fetchWeatherData("current");
   const apiDataForecast = await fetchWeatherData("forecast");
@@ -43,3 +42,18 @@ export async function getlocationData() {
     minTemp: Math.round(apiDataForecast.forecast.forecastday[0].day.mintemp_c),
   };
 }
+export async function getForecastWeather() {
+  const apiDataForecast = await fetchWeatherData("forecast");
+  const weatherConditonData = apiDataForecast.forecast.forecastday[0].day.condition.text;
+  const weatherWindData = apiDataForecast.forecast.forecastday[0].day.maxwind_kph;
+  // console.log("Heute", weatherConditonData, ".", "Wind bis zu", weatherWindData, "km/h.");
+  const forecastDescription = `Heute ${weatherConditonData}. Wind bis zu ${weatherWindData} km/h.`;
+  return { forecastDescription };
+}
+
+export async function getForecastHours() {
+  const apiDataForecast = await fetchWeatherData("forecast");
+  const weatherHoursData = apiDataForecast.forecast.forecastday[0];
+  console.log(weatherHoursData);
+}
+getForecastHours();
