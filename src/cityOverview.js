@@ -45,13 +45,6 @@ export async function buildCurrentWether() {
   }
 }
 
-// export async function buildForecastWeatherDescription() {
-//   const descriptionEL = document.querySelector(".forecast-weather__description");
-//   const weather = await getForecastWeather();
-
-//   descriptionEL.innerText = weather.forecastDescription;
-// }
-
 export async function buildForecastWeather() {
   const weather = await getForecastWeather();
   const weatherHours = await getForecastHours();
@@ -67,7 +60,6 @@ export async function buildForecastWeather() {
   forecastWeatherEL.appendChild(divForecast);
 
   //Schleife zum durchlaufen der 24 Stunden
-
   weatherHours.hourData24h.forEach((hour, index) => {
     const divView = document.createElement("div");
     divView.classList.add("forecast-weather__hour-view");
