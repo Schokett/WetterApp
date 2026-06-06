@@ -97,7 +97,6 @@ export async function buildForecastWeather() {
 }
 export async function buildForecastThreeDay() {
   const weatherData = await getForcastThreeDays();
-  // console.log(weatherData.weatherDateData);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
   const pTitle = document.createElement("p");
@@ -120,12 +119,15 @@ export async function buildForecastThreeDay() {
 
     const pHighTe = document.createElement("p");
     pHighTe.classList.add("forecast-threeDay__highestTemp");
+    pHighTe.innerText = `${Math.floor(element.day.maxtemp_c)}°`;
 
     const pLowTe = document.createElement("p");
     pLowTe.classList.add("forecast-threeDay__lowestTemp");
+    pLowTe.innerText = `${Math.floor(element.day.mintemp_c)}°`;
 
     const pWindTe = document.createElement("p");
     pWindTe.classList.add("forecast-threeDay__WindTempo");
+    pWindTe.innerText = `${Math.floor(element.day.maxwind_kph)} km/h`;
 
     divContainer.append(pDay, img, pHighTe, pLowTe, pWindTe);
   });

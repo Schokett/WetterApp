@@ -98,6 +98,7 @@ export async function getForcastThreeDays() {
     const icon = day.day.condition.icon;
     return icon;
   });
+
   return {
     weatherDateData,
     dates,
