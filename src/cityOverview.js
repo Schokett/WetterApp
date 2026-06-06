@@ -5,6 +5,7 @@ import {
   getForecastWeather,
   getForecastHours,
   getForcastThreeDays,
+  getCurrentStatisticsData,
 } from "./apiFetch.js";
 
 // Build Framwork CurrentWether
@@ -132,4 +133,47 @@ export async function buildForecastThreeDay() {
     divContainer.append(pDay, img, pHighTe, pLowTe, pWindTe);
   });
 }
-buildForecastThreeDay();
+
+export async function buildCurrentStatisticsCards() {
+  const apiData = await getCurrentStatisticsData();
+  const currentStatisticsEL = document.querySelector(".current-statistics");
+
+  const currentStatisticsCard = `<div class="current-statistics__card">
+              <p class="card__title">Feuchtigkeit</p>
+              <span class="card__content">82%</span>
+            </div>
+            <div class="current-statistics__card">
+              <p class="card__title">Gefühlt</p>
+              <span class="card__content">${apiData.dataCurrent.current.feelslike_c}°</span>
+            </div>
+
+            <div class="current-statistics__card">
+              <p class="card__title">Niederschlag</p>
+              <span class="card__content">0.01mm</span>
+            </div>
+            <div class="current-statistics__card">
+              <p class="card__title">UV-Index</p>
+              <span class="card__content">0</span>
+            </div>`;
+  currentStatisticsEL.innerHTML = currentStatisticsCard;
+
+  const currentStatisticsConatinerEL = document.querySelector(".current-statistics-container");
+
+  const currentStatisticsContainerCard = `<div class="current-statistics-container__card">
+              <img src="Sonnenaufgang.png" class="card__img" />
+              <span class="card__content">
+                Sonnenaufgang
+                <br />
+                ${apiData.sunData.sunrise.split(" ")[0]} Uhr
+              </span>
+            </div>
+            <div class="current-statistics-container__card">
+              <span class="card__content">
+                Sonnenuntergang
+                <br />
+                ${apiData.sunData.sunset.split(" ")[0]} Uhr
+              </span>
+              <img src="Sonnenuntergang.png" class="card__img" />
+            </div>`;
+  currentStatisticsConatinerEL.innerHTML = currentStatisticsContainerCard;
+}
