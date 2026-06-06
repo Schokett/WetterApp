@@ -44,7 +44,6 @@ body {
       height: 820px;
       min-height: auto;
       border-radius: 48px;
-      overflow: auto;
       scrollbar-width: none;
 
       border: 12px solid #1c1d21;
@@ -57,6 +56,39 @@ body {
       padding-top: 30px;
     }
   }
+  .weather-background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .app-content-scrollable {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 5;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    padding-top: 50px;
+  }
+  #weather-bg,
+  #rain-container,
+  #stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .smartphone-notch {
     display: none;
 
@@ -73,7 +105,7 @@ body {
       &::before {
         content: "";
         position: absolute;
-        top: 5px;
+        top: -5px;
         left: 50%;
         transform: translateX(-50%);
         width: 110px;
@@ -88,7 +120,7 @@ body {
   .smartphone-speaker {
     @include desktop-view {
       position: absolute;
-      top: -15px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
       width: 40px;
@@ -96,6 +128,30 @@ body {
       background-color: #2c2d30;
       border-radius: 3px;
       z-index: 1001;
+    }
+  }
+}
+.smartphone-camera {
+  @include desktop-view {
+    position: absolute;
+    top: 3px;
+    right: 150px;
+    width: 14px;
+    height: 14px;
+    background-color: #050b14;
+    border: 1px solid rgb(27, 27, 27);
+    border-radius: 50%;
+    z-index: 1002;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 5px;
+      height: 5px;
+      background: radial-gradient(circle, rgba(73, 115, 231, 0.8) 0%, rgba(20, 40, 120, 0) 60%);
+      border-radius: 50%;
     }
   }
 }

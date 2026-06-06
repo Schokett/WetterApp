@@ -1,6 +1,6 @@
 import { updateWeatherBackground } from "./weatherEffects.js";
 // fetch
-export async function fetchWeatherData({ type = "forecast", location = "Nagoya", day = 1 } = {}) {
+export async function fetchWeatherData({ type = "forecast", location = "London", day = 1 } = {}) {
   try {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const queryParams = type === "forecast" ? `&days=${day}` : "";
