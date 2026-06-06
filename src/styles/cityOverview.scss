@@ -1,5 +1,18 @@
 @use "_main" as *;
 
+@mixin card {
+  z-index: 10;
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(50px);
+  box-shadow: 1px 1px 5px rgba(56, 56, 56, 0.479);
+  padding: 1rem;
+  text-shadow: 1px 1px 2px rgb(105, 105, 105);
+}
 .action-buttons {
   display: flex;
   justify-content: space-between;
@@ -46,18 +59,7 @@
 }
 
 .forecast-weather {
-  z-index: 10;
-  position: relative;
-  // height: 200px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(50px);
-  box-shadow: 1px 1px 5px rgba(56, 56, 56, 0.479);
-  padding: 1rem;
-  text-shadow: 1px 1px 2px rgb(105, 105, 105);
+  @include card;
 
   &__description {
     width: 100%;
@@ -82,5 +84,32 @@
     gap: 0.2rem;
     display: flex;
     flex-direction: column;
+  }
+}
+.forecast-threeDay {
+  @include card;
+  gap: 1rem;
+
+  &__title {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__img {
+    width: 2rem;
+  }
+  &__text {
+    width: 2rem;
+  }
+  &__threeDay-container {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid rgba(255, 255, 255, 0.171);
+    gap: 0.5rem;
+    height: auto;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 1rem;
+    align-items: center;
   }
 }

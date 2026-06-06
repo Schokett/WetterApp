@@ -36,7 +36,7 @@ body {
     overflow: auto;
 
     .inline {
-      margin: 0 1rem 0 1rem;
+      margin: 0 1rem 2rem 1rem;
     }
 
     @include desktop-view {
@@ -44,6 +44,8 @@ body {
       height: 820px;
       min-height: auto;
       border-radius: 48px;
+      overflow: auto;
+      scrollbar-width: none;
 
       border: 12px solid #1c1d21;
       outline: 4px solid #43454e;

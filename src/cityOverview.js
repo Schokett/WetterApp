@@ -97,3 +97,13 @@ export async function buildForecastWeather() {
 
   console.log(forecastWeatherEL);
 }
+export async function buildForecastThreeDay() {
+  const div = document.createElement("div");
+  div.classList.add("forecast-threeDay inline");
+
+  const pTitle = document.createElement("p");
+  pTitle.classList.add("forecast-threeDay__title");
+
+  const
+}
+buildForecastThreeDay();
