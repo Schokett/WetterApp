@@ -1,8 +1,10 @@
+import { DoubleSide } from "three";
 import {
   fetchWeatherData,
   getlocationData,
   getForecastWeather,
   getForecastHours,
+  getForcastThreeDays,
 } from "./apiFetch.js";
 
 // Build Framwork CurrentWether
@@ -94,16 +96,40 @@ export async function buildForecastWeather() {
       spanTemperature.innerText = "--°C";
     }
   });
-
-  console.log(forecastWeatherEL);
 }
 export async function buildForecastThreeDay() {
-  const div = document.createElement("div");
-  div.classList.add("forecast-threeDay inline");
+  const weatherData = await getForcastThreeDays();
+  console.log(weatherData.dates);
+  console.log(weatherData.weatherDateData);
 
+  const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
   const pTitle = document.createElement("p");
   pTitle.classList.add("forecast-threeDay__title");
+  pTitle.innerText = "Vorhersage für die nächsten 3 Tage:";
+  forecastThreeDayEl.appendChild(pTitle);
 
-  const
+  weatherData.weatherDateData.forEach((element, index) => {
+    const divContainer = document.createElement("div");
+    divContainer.classList.add("forecast-threeDay__threeDay-container");
+    forecastThreeDayEl.appendChild(divContainer);
+
+    const pDay = document.createElement("p");
+    pDay.classList.add("forecast-threeDay__day");
+    pDay.innerText = weatherData.dates[index];
+
+    const img = document.createElement("img");
+    img.classList.add("forecast-threeDay__img");
+
+    const pHighTe = document.createElement("p");
+    pHighTe.classList.add("forecast-threeDay__highestTemp");
+
+    const pLowTe = document.createElement("p");
+    pLowTe.classList.add("forecast-threeDay__lowestTemp");
+
+    const pWindTe = document.createElement("p");
+    pWindTe.classList.add("forecast-threeDay__WindTempo");
+
+    divContainer.append(pDay, img, pHighTe, pLowTe, pWindTe);
+  });
 }
 buildForecastThreeDay();

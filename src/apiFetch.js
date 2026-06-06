@@ -78,3 +78,22 @@ export async function getForecastHours() {
     hourData24h,
   };
 }
+
+export async function getForcastThreeDays() {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", day: 3 });
+  const weatherDateData = apiDataForecast.forecast.forecastday;
+
+  const dates = weatherDateData.map((day) => {
+    const allDates = day.date;
+    const dateObj = new Date(allDates);
+
+    const weekdaysShort = dateObj.toLocaleDateString("de-DE", { weekday: "short" });
+    return weekdaysShort;
+  });
+
+  return {
+    weatherDateData,
+    dates,
+  };
+}
+getForcastThreeDays();
