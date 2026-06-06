@@ -109,11 +109,9 @@ export async function getForcastThreeDays() {
 export async function getCurrentStatisticsData() {
   const dataCurrent = await fetchWeatherData({ type: "current", day: 1 });
   const dataForecast = await fetchWeatherData({ type: "forecast", day: 1 });
-  // console.log(dataCurrent);
-  // console.log(dataForecast);
+  console.log(dataForecast);
 
   const sunData = dataForecast.forecast.forecastday[0].astro;
-  // console.log(sunData);
 
   return {
     dataCurrent,

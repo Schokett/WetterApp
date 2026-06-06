@@ -18,8 +18,8 @@ async function buildApp() {
   try {
     await locationDetailsWeatherEffects();
     buildCurrentWether();
-    // buildForecastWeather();
-    // buildForecastThreeDay();
+    buildForecastWeather();
+    buildForecastThreeDay();
     buildCurrentStatisticsCards();
   } catch (error) {
     screenEL.innerHTML = "<p>Fehler beim Laden der Wetterdetails</p>";

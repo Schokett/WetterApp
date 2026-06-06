@@ -140,7 +140,7 @@ export async function buildCurrentStatisticsCards() {
 
   const currentStatisticsCard = `<div class="current-statistics__card">
               <p class="card__title">Feuchtigkeit</p>
-              <span class="card__content">82%</span>
+              <span class="card__content">${apiData.dataCurrent.current.humidity}%</span>
             </div>
             <div class="current-statistics__card">
               <p class="card__title">Gefühlt</p>
@@ -149,11 +149,11 @@ export async function buildCurrentStatisticsCards() {
 
             <div class="current-statistics__card">
               <p class="card__title">Niederschlag</p>
-              <span class="card__content">0.01mm</span>
+              <span class="card__content">${apiData.dataCurrent.current.precip_mm}mm</span>
             </div>
             <div class="current-statistics__card">
               <p class="card__title">UV-Index</p>
-              <span class="card__content">0</span>
+              <span class="card__content">${apiData.dataCurrent.current.uv}</span>
             </div>`;
   currentStatisticsEL.innerHTML = currentStatisticsCard;
 
