@@ -113,3 +113,18 @@
     align-items: center;
   }
 }
+.current-statistics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &__card {
+    @include card();
+    padding: 0.5rem;
+    width: 100%;
+    height: 100px;
+  }
+}
