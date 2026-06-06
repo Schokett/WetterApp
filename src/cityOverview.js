@@ -85,9 +85,7 @@ export async function buildForecastWeather() {
       const cutTime = fullTime.split(":")[0] + " Uhr";
       spanTime.innerText = cutTime;
     }
-    imgPicture.src = hour?.condition?.icon
-      ? `https:${hour.condition.icon}`
-      : "path/to/default-weather-icon.png";
+    imgPicture.src = hour?.condition?.icon ? `https:${hour.condition.icon}` : "/";
 
     if (hour?.temp_c !== undefined && hour?.temp_c !== null) {
       const tempRoundOff = Math.floor(hour.temp_c);
@@ -99,8 +97,7 @@ export async function buildForecastWeather() {
 }
 export async function buildForecastThreeDay() {
   const weatherData = await getForcastThreeDays();
-  console.log(weatherData.dates);
-  console.log(weatherData.weatherDateData);
+  // console.log(weatherData.weatherDateData);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
   const pTitle = document.createElement("p");
@@ -119,6 +116,7 @@ export async function buildForecastThreeDay() {
 
     const img = document.createElement("img");
     img.classList.add("forecast-threeDay__img");
+    img.src = weatherData.icons?.[index] ? `https:${weatherData.icons?.[index]}` : "/";
 
     const pHighTe = document.createElement("p");
     pHighTe.classList.add("forecast-threeDay__highestTemp");

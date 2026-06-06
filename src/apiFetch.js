@@ -83,7 +83,10 @@ export async function getForcastThreeDays() {
   const apiDataForecast = await fetchWeatherData({ type: "forecast", day: 3 });
   const weatherDateData = apiDataForecast.forecast.forecastday;
 
-  const dates = weatherDateData.map((day) => {
+  const dates = weatherDateData.map((day, index) => {
+    if (index === 0) {
+      return "Heute";
+    }
     const allDates = day.date;
     const dateObj = new Date(allDates);
 
@@ -91,9 +94,14 @@ export async function getForcastThreeDays() {
     return weekdaysShort;
   });
 
+  const icons = weatherDateData.map((day, index) => {
+    const icon = day.day.condition.icon;
+    return icon;
+  });
   return {
     weatherDateData,
     dates,
+    icons,
   };
 }
-getForcastThreeDays();
+// getForcastThreeDays();
