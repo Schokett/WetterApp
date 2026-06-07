@@ -92,3 +92,48 @@
     transform: translateY(100vh);
   }
 }
+/* Schnee-Flocken */
+.snowflake {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowfall linear infinite;
+}
+
+/* Fall-Animation für Schnee (etwas sanfter und mit leichtem Seitenschwung) */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10px) translateX(0);
+  }
+  50% {
+    transform: translateY(50vh) translateX(20px);
+  }
+  100% {
+    transform: translateY(100vh) translateX(0);
+  }
+}
+
+/* Gewitter-Blitz (wird auf das Vanta-Element angewendet) */
+.screen__container.is-stormy #weather-bg {
+  animation: lightning 4s ease-in-out infinite;
+}
+
+@keyframes lightning {
+  0%,
+  95%,
+  98%,
+  100% {
+    filter: brightness(1);
+  }
+  96%,
+  97% {
+    filter: brightness(3) contrast(1.5); /* Der Blitz-Effekt */
+  }
+}
+
+/* Nebel-Filter über das Hintergrundbild legen */
+.screen__container.is-foggy #weather-bg {
+  filter: blur(2px) saturate(0.5) brightness(1.2);
+  transition: filter 1.5s ease;
+}
