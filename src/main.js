@@ -13,4 +13,5 @@ toggleBtn.addEventListener("click", () => {
   const bodyEL = document.querySelector("body");
 
   bodyEL.classList.toggle("darkmode");
+  toggleBtn.blur();
 });
