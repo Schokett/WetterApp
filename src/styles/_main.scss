@@ -20,6 +20,11 @@ body {
   min-height: 100vh;
   background-color: #c5c7ca;
   color: $lightFontColor;
+  transition: background-color 0.3s ease;
+}
+.darkmode {
+  background-color: #12181f;
+  transition: background-color 0.3s ease;
 }
 .screen {
   display: flex;
@@ -28,6 +33,14 @@ body {
   min-height: 100vh;
   background-color: transparent;
 
+  &__toggle {
+    z-index: 9999;
+    position: absolute;
+    top: 40px;
+    width: auto;
+    right: 40px;
+    background-color: #000000;
+  }
   &__container {
     background-color: transparent;
     width: 100%;

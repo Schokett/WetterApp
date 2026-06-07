@@ -158,7 +158,6 @@ export async function buildCurrentStatisticsCards() {
   currentStatisticsEL.innerHTML = currentStatisticsCard;
 
   const currentStatisticsConatinerEL = document.querySelector(".current-statistics-container");
-
   const currentStatisticsContainerCard = `<div class="current-statistics-container__card">
               <img src="Sonnenaufgang.png" class="card__img" />
               <span class="card__content">
