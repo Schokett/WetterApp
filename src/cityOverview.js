@@ -163,14 +163,14 @@ export async function buildCurrentStatisticsCards() {
               <span class="card__content">
                 Sonnenaufgang
                 <br />
-                ${apiData.sunData.sunrise.split(" ")[0]} Uhr
+                ${apiData.sunrise} Uhr
               </span>
             </div>
             <div class="current-statistics-container__card">
               <span class="card__content">
                 Sonnenuntergang
                 <br />
-                ${apiData.sunData.sunset.split(" ")[0]} Uhr
+                ${apiData.sunset} Uhr
               </span>
               <img src="Sonnenuntergang.png" class="card__img" />
             </div>`;

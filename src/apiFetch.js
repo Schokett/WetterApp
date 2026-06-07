@@ -111,11 +111,20 @@ export async function getCurrentStatisticsData() {
   const dataForecast = await fetchWeatherData({ type: "forecast", day: 1 });
   console.log(dataForecast);
 
-  const sunData = dataForecast.forecast.forecastday[0].astro;
+  const astro = dataForecast.forecast.forecastday[0].astro;
+  const sunrise24 = new Date(`2000/01/01 ${astro.sunrise}`).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const sunset24 = new Date(`2000/01/01 ${astro.sunset}`).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return {
     dataCurrent,
-    sunData,
+    sunrise: sunrise24,
+    sunset: sunset24,
   };
 }
 getCurrentStatisticsData();
