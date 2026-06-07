@@ -111,8 +111,16 @@
   backdrop-filter: blur(5px);
 }
 .screen__container.is-loading .action-buttons,
-.screen__container.is-loading .current-wether {
+.screen__container.is-loading .current-weather {
   display: none;
+}
+
+.screen__container.is-loading {
+  .smartphone-notch,
+  .smartphone-speaker,
+  .smartphone-camera {
+    display: none;
+  }
 }
 .screen__container.center {
   display: flex;
