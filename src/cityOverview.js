@@ -1,4 +1,3 @@
-import { DoubleSide } from "three";
 import {
   fetchWeatherData,
   getlocationData,

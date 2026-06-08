@@ -10,6 +10,7 @@ import * as toggleLoading from "./toggleLoading.js";
 import * as apiFetch from "./apiFetch.js";
 import * as weatherApp from "./weatherApp.js";
 import * as menu from "./menu.js";
+import * as saveDataLocalstorage from "./saveDataLocalstorage.js";
 
 const toggleBtn = document.getElementById("theme-toggle");
 const bodyEL = document.querySelector("body");

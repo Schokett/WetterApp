@@ -1,4 +1,4 @@
-import {} from "./apiFetch.js";
+import { getSavedLocations } from "./saveDataLocalstorage.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
@@ -71,4 +71,26 @@ export function updateWeatherCardBackground(weatherCode, currentHour) {
 }
 updateWeatherCardBackground();
 
-// function displayData();
+async function displayData() {
+  const locations = document.querySelector(".locations");
+  const savedLocations = await getSavedLocations();
+  console.log(savedLocations.dataLocalStorage);
+  savedLocations.dataLocalStorage.forEach((item, index) => {
+    const html = `<div class="locations__location">
+              <div class="locations__container-top">
+                <div class="locations__city-info">
+                  <p class="locations__city-name">${item.locations.city}</p>
+                  <p class="locations__country-name">${item.locations.country}</p>
+                </div>
+
+                <p class="locations__temperature">${item.locations.temp_c}°</p>
+              </div>
+              <div class="locations__container">
+                <p class="locations__title">${item.locations.condition_text}</p>
+                <p class="locations__temperatureHighLow">H:${item.locations.maxtemp_c}° T:${item.locations.mintemp_c}°</p>
+              </div>
+            </div>`;
+    locations.innerHTML += html;
+  });
+}
+displayData();
