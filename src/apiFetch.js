@@ -29,7 +29,7 @@ export async function locationDetailsWeatherEffects() {
   const currentHour = parseInt(timePart.split(":")[0]);
   const weatherCode = apiDataCurrent.current.condition.code;
   updateWeatherBackground(weatherCode, currentHour);
-  updateWeatherCardBackground(weatherCode);
+  updateWeatherCardBackground(weatherCode, currentHour);
 }
 
 export async function getlocationData() {

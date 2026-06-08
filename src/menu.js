@@ -1,10 +1,12 @@
 import {} from "./apiFetch.js";
 
-export function updateWeatherCardBackground(weatherCode) {
+export function updateWeatherCardBackground(weatherCode, currentHour) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
   if (!weatherCode) {
     return;
   }
+  const isNight = currentHour >= 20 || currentHour < 6;
+  console.log("hier", currentHour);
   // ================================
   //Wetter Manipulieren!
   // weatherCode = 1069;
@@ -33,19 +35,33 @@ export function updateWeatherCardBackground(weatherCode) {
   const sleetAndIce = [1069, 1072, 1198, 1201, 1204, 1207, 1237, 1249, 1252, 1261, 1264];
 
   if (sunAndClouds.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #3277DE 0%, #fff1bf 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #111E3A 0%, #324976 100%)" // Nacht-Himmel (Klar/Wolken)
+      : "linear-gradient(135deg, #3277DE 0%, #fff1bf 100%)"; // Tag
   } else if (fogAndMist.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #888F92 0%, #ffffee 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #2C3A47 0%, #576574 100%)" // Düsterer Nebel
+      : "linear-gradient(135deg, #888F92 0%, #ffffee 100%)";
   } else if (lightRainDrizzle.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #242926 0%, #C4B1B3 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #1B2120 0%, #4A5351 100%)" // Nächtlicher Niesel
+      : "linear-gradient(135deg, #242926 0%, #C4B1B3 100%)";
   } else if (heavyRain.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #373834 0%, #A69796 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #1F201D 0%, #3D3D3A 100%)" // Nasser Asphalt / Starkregen nachts
+      : "linear-gradient(135deg, #373834 0%, #A69796 100%)";
   } else if (thunderStorm.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #262422 0%, #D0ADA1 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #141210 0%, #4D3D38 100%)" // Dunkles Gewitter
+      : "linear-gradient(135deg, #262422 0%, #D0ADA1 100%)";
   } else if (snow.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #365358 0%, #FFFFDC 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #1C2E31 0%, #4C6569 100%)" // Nacht-Schnee
+      : "linear-gradient(135deg, #365358 0%, #FFFFDC 100%)";
   } else if (sleetAndIce.includes(weatherCode)) {
-    finalColor = finalColor = "linear-gradient(135deg, #6d7174 0%, #FFFFDC 100%)";
+    finalColor = isNight
+      ? "linear-gradient(135deg, #3A3E41 0%, #5D6366 100%)" // Gefrorene Nacht
+      : "linear-gradient(135deg, #6d7174 0%, #FFFFDC 100%)";
   }
 
   const locationCard = document.querySelector(".locations__location");
