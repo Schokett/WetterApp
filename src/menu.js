@@ -70,3 +70,5 @@ export function updateWeatherCardBackground(weatherCode, currentHour) {
   }
 }
 updateWeatherCardBackground();
+
+// function displayData();

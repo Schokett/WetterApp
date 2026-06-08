@@ -3,7 +3,7 @@ import { updateWeatherCardBackground } from "./menu.js";
 // fetch
 export async function fetchWeatherData({
   type = "forecast",
-  location = "hennstedt",
+  location = "Frankfurt am main",
   day = 1,
 } = {}) {
   try {

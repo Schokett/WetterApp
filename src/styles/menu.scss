@@ -32,7 +32,6 @@
   }
   &__title {
     font-size: 2rem;
-    white-space: nowrap;
   }
   &__config {
     color: $lightFontColor;
@@ -111,6 +110,27 @@
   &__container-top {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+  }
+  &__city-info {
+    display: flex;
+    flex-direction: column;
+  }
+  &__city-name {
+    max-width: 200px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.5rem;
+  }
+  &__country-name {
+    font-weight: 200;
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+  &__title {
+    font-size: 0.9rem;
   }
   &__container {
     display: flex;
@@ -118,6 +138,6 @@
     margin-top: 3rem;
   }
   &__temperature {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
