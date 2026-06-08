@@ -1,5 +1,5 @@
 import { fetchWeatherData } from "./apiFetch.js";
-import { city } from "./menu.js";
+import { city } from "./weatherApp.js";
 
 export async function toggleLoading(isLoading, location = "") {
   const container = document.querySelector(".screen__container");

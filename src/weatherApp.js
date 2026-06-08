@@ -8,7 +8,7 @@ import {
   buildCurrentStatisticsCards,
 } from "./cityOverview.js";
 
-function city() {
+export function city() {
   const city = "Osaka";
   return city;
 }

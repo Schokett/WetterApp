@@ -9,12 +9,6 @@ import {
 } from "./apiFetch.js";
 import { toggleLoading } from "./toggleLoading.js";
 
-//Zum entwicklen **RAUSNEHMEN WENN FERTIG!
-// const weatherOverview = document.querySelector(".app-content-scrollable");
-// const weather = document.querySelector(".weather-background-wrapper");
-// weatherOverview.innerHTML = "";
-// weather.innerHTML = "";
-
 // Menu Button
 const menuButton = document.querySelector(".action-buttons__menu");
 const menuEl = document.querySelector(".menu");
