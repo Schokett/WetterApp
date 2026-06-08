@@ -6,13 +6,13 @@ export function updateWeatherCardBackground(weatherCode, currentHour) {
     return;
   }
   const isNight = currentHour >= 20 || currentHour < 6;
-  console.log("hier", currentHour);
+  //   console.log("hier", currentHour);
   // ================================
   //Wetter Manipulieren!
   // weatherCode = 1069;
   // ================================
 
-  console.log(weatherCode);
+  //   console.log(weatherCode);
   // --- 1. SONNE / KLAR / WOLKEN ---
   const sunAndClouds = [1000, 1003, 1006, 1009];
 

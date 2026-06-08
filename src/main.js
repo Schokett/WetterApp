@@ -12,9 +12,19 @@ import * as weatherApp from "./weatherApp.js";
 import * as menu from "./menu.js";
 
 const toggleBtn = document.getElementById("theme-toggle");
-toggleBtn.addEventListener("click", () => {
-  const bodyEL = document.querySelector("body");
+const bodyEL = document.querySelector("body");
+function initTheme() {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
+  if (prefersDark) {
+    bodyEL.classList.add("darkmode");
+  } else {
+    bodyEL.classList.remove("darkmode");
+  }
+}
+initTheme();
+
+toggleBtn.addEventListener("click", () => {
   bodyEL.classList.toggle("darkmode");
   toggleBtn.blur();
 });
