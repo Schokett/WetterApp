@@ -99,6 +99,8 @@
 .screen__container.is-loading .loading-overlay {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
   align-items: center;
   height: 100%;
   background-color: $backgroundcolor;

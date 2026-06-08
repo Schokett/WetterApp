@@ -7,6 +7,16 @@ import {
   getForcastThreeDays,
   getCurrentStatisticsData,
 } from "./apiFetch.js";
+import { toggleLoading } from "./toggleLoading.js";
+// Menu Button
+const menuButton = document.querySelector(".action-buttons");
+menuButton.addEventListener("click", function () {
+  const weatherOverview = document.querySelector(".app-content-scrollable");
+  const weather = document.querySelector(".weather-background-wrapper");
+  toggleLoading(true);
+  weatherOverview.innerHTML = "";
+  weather.innerHTML = "";
+});
 
 // Build Framwork CurrentWether
 export async function buildCurrentWether() {

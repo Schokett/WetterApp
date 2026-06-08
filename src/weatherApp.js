@@ -7,14 +7,18 @@ import {
   buildForecastThreeDay,
   buildCurrentStatisticsCards,
 } from "./cityOverview.js";
+import { city } from "./menu.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
 });
 
 async function buildApp() {
-  toggleLoading(true);
-
+  if (city) {
+    toggleLoading(true, city());
+  } else {
+    toggleLoading(true);
+  }
   try {
     await locationDetailsWeatherEffects();
     buildCurrentWether();
@@ -22,8 +26,11 @@ async function buildApp() {
     buildForecastThreeDay();
     buildCurrentStatisticsCards();
   } catch (error) {
-    screenEL.innerHTML = "<p>Fehler beim Laden der Wetterdetails</p>";
-    console.log(error);
+    const screenEL = document.querySelector(".screen__container");
+    if (screenEL) {
+      screenEL.innerHTML = "<p>Fehler beim Laden der Wetterdetails</p>";
+    }
+    console.error("Fehler beim App-Aufbau:", error);
   } finally {
     toggleLoading(false);
   }

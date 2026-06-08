@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Wetter App</title>
     <link rel="icon" href="src/assets/wetherIcon.png" />
   </head>
   <body>
@@ -35,13 +35,13 @@
         </div>
 
         <div class="app-content-scrollable">
-          <div class="action-buttons button">
+          <div class="action-buttons">
             <button class="action-buttons__menu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="action-buttons__menu button">
+                class="action-icon">
                 <path
                   fill-rule="evenodd"
                   d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
@@ -55,7 +55,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="action-buttons__save button">
+                class="action-icon">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -72,6 +72,8 @@
         </div>
 
         <div class="loading-overlay">
+          <div class="loading-overlay__title-city"></div>
+          <div class="loading-overlay__title-menu"></div>
           <div class="lds-default">
             <div></div>
             <div></div>
