@@ -249,6 +249,10 @@ export function updateWeatherBackground(weatherCode, hour) {
   stopRain();
   stopSnow();
   stopStars();
+  // ================================
+  //Wetter Manipulieren!
+  // weatherCode = 1069;
+  // ================================
 
   const container = document.querySelector(".screen__container");
   const vantaEl = document.getElementById("weather-bg");

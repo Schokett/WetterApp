@@ -1,6 +1,11 @@
 import { updateWeatherBackground } from "./weatherEffects.js";
+import { updateWeatherCardBackground } from "./menu.js";
 // fetch
-export async function fetchWeatherData({ type = "forecast", location = "Nagoya", day = 1 } = {}) {
+export async function fetchWeatherData({
+  type = "forecast",
+  location = "hennstedt",
+  day = 1,
+} = {}) {
   try {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const queryParams = type === "forecast" ? `&days=${day}` : "";
@@ -24,6 +29,7 @@ export async function locationDetailsWeatherEffects() {
   const currentHour = parseInt(timePart.split(":")[0]);
   const weatherCode = apiDataCurrent.current.condition.code;
   updateWeatherBackground(weatherCode, currentHour);
+  updateWeatherCardBackground(weatherCode);
 }
 
 export async function getlocationData() {
@@ -109,7 +115,7 @@ export async function getForcastThreeDays() {
 export async function getCurrentStatisticsData() {
   const dataCurrent = await fetchWeatherData({ type: "current", day: 1 });
   const dataForecast = await fetchWeatherData({ type: "forecast", day: 1 });
-  console.log(dataForecast);
+  // console.log(dataForecast);
 
   const astro = dataForecast.forecast.forecastday[0].astro;
   const sunrise24 = new Date(`2000/01/01 ${astro.sunrise}`).toLocaleTimeString("de-DE", {
