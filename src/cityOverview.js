@@ -8,15 +8,26 @@ import {
   getCurrentStatisticsData,
 } from "./apiFetch.js";
 import { toggleLoading } from "./toggleLoading.js";
+
+//Zum entwicklen **RAUSNEHMEN WENN FERTIG!
+// const weatherOverview = document.querySelector(".app-content-scrollable");
+// const weather = document.querySelector(".weather-background-wrapper");
+// weatherOverview.innerHTML = "";
+// weather.innerHTML = "";
+
 // Menu Button
-const menuButton = document.querySelector(".action-buttons");
-menuButton.addEventListener("click", function () {
-  const weatherOverview = document.querySelector(".app-content-scrollable");
-  const weather = document.querySelector(".weather-background-wrapper");
-  toggleLoading(true);
-  weatherOverview.innerHTML = "";
-  weather.innerHTML = "";
-});
+const menuButton = document.querySelector(".action-buttons__menu");
+const menuEl = document.querySelector(".menu");
+
+if (menuButton && menuEl) {
+  menuButton.addEventListener("click", function () {
+    toggleLoading(true);
+
+    menuEl.classList.add("is-active");
+
+    toggleLoading(false);
+  });
+}
 
 // Build Framwork CurrentWether
 export async function buildCurrentWether() {

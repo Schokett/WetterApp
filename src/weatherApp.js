@@ -7,7 +7,11 @@ import {
   buildForecastThreeDay,
   buildCurrentStatisticsCards,
 } from "./cityOverview.js";
-import { city } from "./menu.js";
+
+function city() {
+  const city = "Osaka";
+  return city;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();

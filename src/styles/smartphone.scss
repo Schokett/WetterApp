@@ -1,0 +1,131 @@
+@use "_main" as *;
+
+// Nutze Bindestriche, passend zu deinem HTML!
+.smartphone-notch {
+  display: none;
+
+  @include desktop-view {
+    display: block;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: transparent;
+    z-index: 3000;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 30px;
+      background-color: #000000;
+      border-radius: 20px;
+      box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Das von JS befüllte Element stylen
+.smartphone-info {
+  @include desktop-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; // Höhe der Statusleiste
+    padding: 0 24px; // Schiebt Uhr und Akku an den Displayrand
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1005;
+    pointer-events: none;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $lightFontColor;
+  }
+
+  // Die von JS injizierten Unterelemente
+  .status-bar-left,
+  .status-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-bar-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .status-bar-battery {
+    width: 22px;
+    height: 11px;
+    border: 1px solid $lightFontColor;
+    border-radius: 3px;
+    padding: 1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 2px;
+      height: 3px;
+      background-color: $lightFontColor;
+      border-radius: 0 1px 1px 0;
+    }
+
+    &__level {
+      width: 80%; // Akkustand-Füllung (80%)
+      height: 100%;
+      background-color: #2ecc71;
+      border-radius: 1px;
+    }
+  }
+}
+.smartphone-speaker {
+  @include desktop-view {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background-color: #2c2d30;
+    border-radius: 3px;
+    z-index: 1001;
+  }
+}
+
+.smartphone-camera {
+  @include desktop-view {
+    position: absolute;
+    top: 3px;
+    right: 150px;
+    width: 14px;
+    height: 14px;
+    background-color: #050b14;
+    border: 1px solid rgb(27, 27, 27);
+    border-radius: 50%;
+    z-index: 1002;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 5px;
+      height: 5px;
+      background: radial-gradient(circle, rgba(73, 115, 231, 0.8) 0%, rgba(20, 40, 120, 0) 60%);
+      border-radius: 50%;
+    }
+  }
+}
