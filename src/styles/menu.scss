@@ -3,6 +3,7 @@
 .menu {
   background-image: linear-gradient(to bottom, #293b6d, #27355c, #26304b, #242a3a, #22242a);
   position: absolute;
+  text-shadow: 1px 1px 2px rgb(105, 105, 105);
   top: 0px;
   left: 0;
   width: 100%;
@@ -10,6 +11,7 @@
   overflow-y: auto;
   z-index: 5;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -98,6 +100,7 @@
   flex-direction: column;
   gap: 1rem;
   &__location {
+    text-shadow: 1px 1px 2px rgb(105, 105, 105);
     margin: 0 1rem;
     padding: 1rem;
     border-radius: 12px;
