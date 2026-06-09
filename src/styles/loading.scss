@@ -99,6 +99,7 @@
   display: none; // MUSS HIER STEHEN! Sonst ist es immer sichtbar.
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .screen__container.is-loading .loading-overlay {
@@ -110,7 +111,7 @@
 
   background-color: $backgroundcolor;
   position: absolute;
-
+  pointer-events: none;
   // Hier startet das Overlay erst unter der Notch (bei 45px)
   top: 0px;
   left: 0;
