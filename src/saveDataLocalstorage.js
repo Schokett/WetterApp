@@ -1,5 +1,4 @@
 export async function getSavedLocations() {
-  // Stadt, Land, Temp, wetter lage, highest and tief aus dem Localstorage
   const dataLocalStorage = [
     {
       locations: {

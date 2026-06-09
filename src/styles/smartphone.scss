@@ -1,6 +1,5 @@
 @use "_main" as *;
 
-// Nutze Bindestriche, passend zu deinem HTML!
 .smartphone-notch {
   display: none;
 
@@ -29,15 +28,14 @@
   }
 }
 
-// Das von JS befüllte Element stylen
 .smartphone-info {
   @include desktop-view {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 30px; // Höhe der Statusleiste
-    padding: 0 24px; // Schiebt Uhr und Akku an den Displayrand
+    height: 30px;
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +47,6 @@
     color: $lightFontColor;
   }
 
-  // Die von JS injizierten Unterelemente
   .status-bar-left,
   .status-bar-right {
     display: flex;
@@ -84,7 +81,7 @@
     }
 
     &__level {
-      width: 80%; // Akkustand-Füllung (80%)
+      width: 80%;
       height: 100%;
       background-color: #2ecc71;
       border-radius: 1px;

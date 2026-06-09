@@ -8,7 +8,6 @@ import {
 } from "./apiFetch.js";
 import { toggleLoading } from "./toggleLoading.js";
 
-// Menu Button
 const menuButton = document.querySelector(".action-buttons__menu");
 const menuEl = document.querySelector(".menu");
 
@@ -22,7 +21,6 @@ if (menuButton && menuEl) {
   });
 }
 
-// Build Framwork CurrentWether
 export async function buildCurrentWether() {
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");

@@ -1,6 +1,6 @@
 import { updateWeatherBackground } from "./weatherEffects.js";
 import { updateWeatherCardBackground } from "./menu.js";
-// fetch
+
 export async function fetchWeatherData({
   type = "forecast",
   location = "Frankfurt am main",
@@ -115,7 +115,6 @@ export async function getForcastThreeDays() {
 export async function getCurrentStatisticsData() {
   const dataCurrent = await fetchWeatherData({ type: "current", day: 1 });
   const dataForecast = await fetchWeatherData({ type: "forecast", day: 1 });
-  // console.log(dataForecast);
 
   const astro = dataForecast.forecast.forecastday[0].astro;
   const sunrise24 = new Date(`2000/01/01 ${astro.sunrise}`).toLocaleTimeString("de-DE", {
