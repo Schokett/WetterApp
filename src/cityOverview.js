@@ -8,6 +8,7 @@ import {
 } from "./apiFetch.js";
 import { toggleLoading } from "./toggleLoading.js";
 import { renderMenu } from "./handleApp.js";
+import { cityName } from "./weatherApp.js";
 
 export function initOverview() {
   const overviewContainer = document.querySelector(".app-content-scrollable");
@@ -50,12 +51,12 @@ export function initOverview() {
   menuButton();
 }
 
-export async function buildCurrentWether() {
+export async function buildCurrentWether(city) {
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
   try {
-    const weather = await getlocationData();
+    const weather = await getlocationData(city);
 
     const div = document.createElement("div");
     div.classList.add("current-weather");
@@ -89,9 +90,9 @@ export async function buildCurrentWether() {
   }
 }
 
-export async function buildForecastWeather() {
-  const weather = await getForecastWeather();
-  const weatherHours = await getForecastHours();
+export async function buildForecastWeather(city) {
+  const weather = await getForecastWeather(city);
+  const weatherHours = await getForecastHours(city);
   const forecastWeatherEL = document.querySelector(".forecast-weather");
 
   const p = document.createElement("p");
@@ -137,8 +138,8 @@ export async function buildForecastWeather() {
     }
   });
 }
-export async function buildForecastThreeDay() {
-  const weatherData = await getForcastThreeDays();
+export async function buildForecastThreeDay(city) {
+  const weatherData = await getForcastThreeDays(city);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
   const pTitle = document.createElement("p");
@@ -175,8 +176,8 @@ export async function buildForecastThreeDay() {
   });
 }
 
-export async function buildCurrentStatisticsCards() {
-  const apiData = await getCurrentStatisticsData();
+export async function buildCurrentStatisticsCards(city) {
+  const apiData = await getCurrentStatisticsData(city);
   const currentStatisticsEL = document.querySelector(".current-statistics");
 
   const currentStatisticsCard = `<div class="current-statistics__card">

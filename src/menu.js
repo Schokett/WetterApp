@@ -111,7 +111,7 @@ export async function displayHTML() {
 export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedLocations = await getSavedLocations();
-  console.log(savedLocations.dataLocalStorage);
+  // console.log(savedLocations.dataLocalStorage);
   savedLocations.dataLocalStorage.forEach((item, index) => {
     const html = `<div class="locations__location">
               <div class="locations__container-top">

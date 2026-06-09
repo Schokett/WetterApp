@@ -8,7 +8,7 @@ import {
   buildCurrentStatisticsCards,
   initOverview,
 } from "./cityOverview.js";
-export let cityName = "Osaka";
+export let cityName = "";
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
@@ -23,12 +23,12 @@ export async function buildApp(city = "osaka") {
   }
   try {
     console.log(city);
-    await locationDetailsWeatherEffects();
+    await locationDetailsWeatherEffects(city);
     initOverview();
-    await buildCurrentWether();
-    await buildForecastWeather();
-    await buildForecastThreeDay();
-    await buildCurrentStatisticsCards();
+    await buildCurrentWether(city);
+    await buildForecastWeather(city);
+    await buildForecastThreeDay(city);
+    await buildCurrentStatisticsCards(city);
   } catch (error) {
     const screenEL = document.querySelector(".screen__container");
     if (screenEL) {

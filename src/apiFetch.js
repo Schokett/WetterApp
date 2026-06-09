@@ -19,10 +19,10 @@ export async function fetchWeatherData({
     console.log("message:", error);
   }
 }
-export async function locationDetailsWeatherEffects() {
-  const apiDataCurrent = await fetchWeatherData({ type: "current" });
-  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
-
+export async function locationDetailsWeatherEffects(city) {
+  const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
+  console.log("hier", city);
   // 1. Uhrzeit und Wetter-Text extrahieren
   const localTimeHTML = apiDataCurrent.location.localtime;
   const timePart = localTimeHTML.split(" ")[1];
@@ -32,9 +32,9 @@ export async function locationDetailsWeatherEffects() {
   updateWeatherCardBackground(weatherCode, currentHour);
 }
 
-export async function getlocationData() {
-  const apiDataCurrent = await fetchWeatherData({ type: "current" });
-  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
+export async function getlocationData(city) {
+  const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
 
   const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
   const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
@@ -47,8 +47,8 @@ export async function getlocationData() {
     minTemp: Math.round(apiDataForecast.forecast.forecastday[0].day.mintemp_c),
   };
 }
-export async function getForecastWeather() {
-  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
+export async function getForecastWeather(city) {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
   const weatherConditonData = apiDataForecast.forecast.forecastday[0].day.condition.text;
   const weatherWindData = apiDataForecast.forecast.forecastday[0].day.maxwind_kph;
 
@@ -56,8 +56,8 @@ export async function getForecastWeather() {
   return { forecastDescription };
 }
 
-export async function getForecastHours() {
-  const apiDataForecast = await fetchWeatherData({ type: "forecast" });
+export async function getForecastHours(city) {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
   const weatherHoursData = apiDataForecast.forecast.forecastday[0].hour;
 
   //holt Eintrag der aktuell ist
@@ -85,8 +85,8 @@ export async function getForecastHours() {
   };
 }
 
-export async function getForcastThreeDays() {
-  const apiDataForecast = await fetchWeatherData({ type: "forecast", day: 3 });
+export async function getForcastThreeDays(city) {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city, day: 3 });
   const weatherDateData = apiDataForecast.forecast.forecastday;
 
   const dates = weatherDateData.map((day, index) => {
@@ -112,9 +112,9 @@ export async function getForcastThreeDays() {
   };
 }
 
-export async function getCurrentStatisticsData() {
-  const dataCurrent = await fetchWeatherData({ type: "current", day: 1 });
-  const dataForecast = await fetchWeatherData({ type: "forecast", day: 1 });
+export async function getCurrentStatisticsData(city) {
+  const dataCurrent = await fetchWeatherData({ type: "current", location: city, day: 1 });
+  const dataForecast = await fetchWeatherData({ type: "forecast", location: city, day: 1 });
 
   const astro = dataForecast.forecast.forecastday[0].astro;
   const sunrise24 = new Date(`2000/01/01 ${astro.sunrise}`).toLocaleTimeString("de-DE", {
