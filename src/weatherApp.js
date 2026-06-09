@@ -6,6 +6,7 @@ import {
   buildForecastWeather,
   buildForecastThreeDay,
   buildCurrentStatisticsCards,
+  initOverview,
 } from "./cityOverview.js";
 
 export function city() {
@@ -18,17 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export async function buildApp() {
+  let overviewActive = true;
   if (city) {
     toggleLoading(true, city());
-  } else {
-    toggleLoading(true);
   }
   try {
     await locationDetailsWeatherEffects();
-    buildCurrentWether();
-    buildForecastWeather();
-    buildForecastThreeDay();
-    buildCurrentStatisticsCards();
+    initOverview();
+    await buildCurrentWether();
+    await buildForecastWeather();
+    await buildForecastThreeDay();
+    await buildCurrentStatisticsCards();
   } catch (error) {
     const screenEL = document.querySelector(".screen__container");
     if (screenEL) {
@@ -38,5 +39,12 @@ export async function buildApp() {
   } finally {
     toggleLoading(false);
   }
+  return { overviewActive };
 }
 buildApp();
+export function clearOverview() {
+  const overviewContainer = document.querySelector(".app-content-scrollable");
+  if (overviewContainer) {
+    overviewContainer.innerHTML = "";
+  }
+}
