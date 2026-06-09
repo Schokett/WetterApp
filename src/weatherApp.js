@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
 });
 
-async function buildApp() {
+export async function buildApp() {
   if (city) {
     toggleLoading(true, city());
   } else {

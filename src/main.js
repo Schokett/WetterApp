@@ -11,6 +11,7 @@ import * as apiFetch from "./apiFetch.js";
 import * as weatherApp from "./weatherApp.js";
 import * as menu from "./menu.js";
 import * as saveDataLocalstorage from "./saveDataLocalstorage.js";
+import { buildApp } from "./weatherApp.js";
 
 const toggleBtn = document.getElementById("theme-toggle");
 const bodyEL = document.querySelector("body");
@@ -64,3 +65,12 @@ function initSmartphoneStatus() {
   setInterval(updateClock, 1000);
 }
 initSmartphoneStatus();
+
+function cardEventListener() {
+  const locationEL = document.querySelector(".locations");
+  const menuEl = document.querySelector(".menu");
+  locationEL.addEventListener("click", () => {
+    menuEl.classList.remove("is-active");
+  });
+}
+cardEventListener();
