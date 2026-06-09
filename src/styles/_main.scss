@@ -134,27 +134,24 @@ body {
   }
 }
 
-/// 1. Vanta-Hintergrund absolut wasserdicht ausblenden bei Sonne
 #weather-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2; // Liegt normalerweise über dem Wrapper
+  z-index: 2;
   transition:
     opacity 0.5s ease,
     visibility 0.5s ease;
 
-  // WENN DIE SONNE SCHEINT: Absolute Urlaubssperre für die Wolken
   &.is-sunny {
     opacity: 0 !important;
-    visibility: hidden !important; // Schaltet das Element komplett unsichtbar
-    z-index: -1 !important; // Schiebt es hinter den blauen CSS-Himmel
+    visibility: hidden !important;
+    z-index: -1 !important;
   }
 }
 
-// 2. Die anderen Container bleiben unangetastet vorn
 #rain-container,
 #stars-container {
   position: absolute;
@@ -165,7 +162,6 @@ body {
   z-index: 4;
 }
 
-// 3. Der Wrapper hält die XXL-Sonne und die Taschenlampen-Lichtkegel
 .weather-background-wrapper {
   position: absolute;
   top: 0;
@@ -175,26 +171,24 @@ body {
   z-index: 1;
   background: #3a7bd5;
   transition: background 0.5s ease;
-  overflow: hidden; // Schneidet die riesigen Lichtkegel am Display-Rand ab
+  overflow: hidden;
 
-  // A) DER SONNENKERN (Jetzt XXL-Größe für maximale Hitze!)
   &::before {
     content: "";
     position: absolute;
-    top: 5%; // Weiter nach oben geschoben wegen der neuen Größe
-    right: -40px; // Etwas weiter nach rechts versetzt, damit sie elegant reinschneidet
-    width: 220px; // Von 140px auf 220px vergrößert!
-    height: 220px; // Von 140px auf 220px vergrößert!
+    top: 5%;
+    right: -40px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
 
     background: radial-gradient(circle, #ffffff 20%, #ffdf6d 60%, #ffa502 100%);
 
-    // Große Shadows für die XXL-Sonne
     box-shadow:
       0 0 90px rgba(255, 223, 109, 0.85),
       0 0 200px rgba(255, 165, 2, 0.65);
 
-    filter: blur(5px); // Schöne weiche Ränder
+    filter: blur(5px);
 
     opacity: 0;
     transform: scale(0.8);
@@ -203,11 +197,9 @@ body {
       transform 0.8s ease;
     z-index: 3;
 
-    // Die neue Hitze-Animation läuft hier im 4-Sekunden-Takt ab
     animation: pulseSun 4s ease-in-out infinite alternate;
   }
 
-  // B) DIE TASCHENLAMPEN-STRAHLEN (Große, breite Lichtkegel quer übers Handy)
   &::after {
     content: "";
     position: absolute;
@@ -234,11 +226,9 @@ body {
       transform 1.2s ease;
     z-index: 2;
 
-    // Lässt den Taschenlampenstrahl ganz sanft hin und her schwenken
     animation: searchlight 12s ease-in-out infinite alternate;
   }
 
-  // Wenn Vanta unsichtbar wird (is-sunny aktiv), faden wir das Lichtgewitter ein
   &:has(#weather-bg.is-sunny) {
     background: linear-gradient(to bottom, #1961d2, #5ea0fa);
 
@@ -253,9 +243,6 @@ body {
   }
 }
 
-// 4. DIE ANIMATIONEN
-
-// Schwenken des großen Taschenlampen-Lichtkegels
 @keyframes searchlight {
   0% {
     transform: rotate(0deg) scale(1);
@@ -265,7 +252,6 @@ body {
   }
 }
 
-// Das organische Hitze-Pulsieren für den Sonnenkern
 @keyframes pulseSun {
   0% {
     transform: scale(1);
@@ -276,21 +262,21 @@ body {
   }
   35% {
     transform: scale(1.02);
-    filter: blur(5px); // Wird minimal unschärfer (Luftflimmern)
+    filter: blur(5px);
     box-shadow:
       0 0 65px rgba(255, 223, 109, 0.85),
       0 0 130px rgba(255, 165, 2, 0.6);
   }
   70% {
     transform: scale(0.99);
-    filter: blur(3.5px); // Wird kurz knackiger scharf
+    filter: blur(3.5px);
     box-shadow:
       0 0 55px rgba(255, 230, 150, 0.9),
       0 0 150px rgba(255, 165, 2, 0.65);
   }
   100% {
     transform: scale(1.03);
-    filter: blur(6px); // Maximales Hitzeflimmern am Scheitelpunkt
+    filter: blur(6px);
     box-shadow:
       0 0 80px rgba(255, 223, 109, 0.8),
       0 0 170px rgba(255, 165, 2, 0.5),
