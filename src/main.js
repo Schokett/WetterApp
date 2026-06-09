@@ -14,23 +14,26 @@ import * as saveDataLocalstorage from "./saveDataLocalstorage.js";
 import * as handelApp from "./handleApp.js";
 import { buildApp } from "./weatherApp.js";
 
-const toggleBtn = document.getElementById("theme-toggle");
-const bodyEL = document.querySelector("body");
-function initTheme() {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+let controller = new AbortController();
 
-  if (prefersDark) {
-    bodyEL.classList.add("darkmode");
-  } else {
-    bodyEL.classList.remove("darkmode");
-  }
+if (!window.hasThemeListener) {
+  window.hasThemeListener = true;
+
+  document.addEventListener("click", (event) => {
+    const btn = event.target.closest("#theme-toggle");
+
+    if (btn) {
+      const bodyEL = document.querySelector("body");
+      bodyEL.classList.toggle("darkmode");
+
+      const isDark = bodyEL.classList.contains("darkmode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+
+      console.log("Button geklickt! Status:", isDark ? "dark" : "light");
+      btn.blur();
+    }
+  });
 }
-initTheme();
-
-toggleBtn.addEventListener("click", () => {
-  bodyEL.classList.toggle("darkmode");
-  toggleBtn.blur();
-});
 
 function initSmartphoneStatus() {
   const infoContainer = document.querySelector(".smartphone-info");
