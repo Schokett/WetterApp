@@ -1,4 +1,4 @@
-import { getSavedLocations } from "./saveDataLocalstorage.js";
+import { getSavedLocations, getFavortiteCity } from "./saveDataLocalstorage.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour, element) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
@@ -116,12 +116,12 @@ export async function displayHTML() {
 
 export async function displayData() {
   const locations = document.querySelector(".locations");
-  const savedLocations = await getSavedLocations();
-
+  const savedFavorites = await getFavortiteCity();
+  //savedFavorites muss noch das gesamte gerüst werden, mit allen werten die hier unten drin stehen. mometan ist es nur der Name und ein datum der erstellung!
   locations.innerHTML = "";
 
-  savedLocations.dataLocalStorage.forEach((item) => {
-    // console.log("Das komplette Item-Objekt:", item);
+  savedFavorites.forEach((item) => {
+    console.log("Das komplette Item-Objekt:", item);
     // 1. Element ERST erstellen
     const card = document.createElement("div");
     card.classList.add("locations__location");

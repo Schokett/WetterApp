@@ -1,4 +1,4 @@
-export async function getSavedLocations() {
+export function getSavedLocations() {
   const dataLocalStorage = [
     {
       locations: {
@@ -63,6 +63,8 @@ export function saveFavoriteCity(cityData) {
   }
 }
 
-export function getFavoriteCities() {
-  return JSON.parse(localStorage.getItem("favoriteCities") || "[]");
+export function getFavortiteCity() {
+  const storedData = localStorage.getItem("favoriteCities");
+  console.log(storedData);
+  return storedData ? JSON.parse(storedData) : [];
 }
