@@ -8,7 +8,7 @@ export async function renderMenu() {
   const menuEl = document.querySelector(".menu");
   try {
     toggleLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 6000));
+    // await new Promise((resolve) => setTimeout(resolve, 6000));
     menuEl.classList.add("is-active");
     clearOverview();
     displayHTML();
