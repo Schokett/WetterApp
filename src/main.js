@@ -12,7 +12,6 @@ import * as weatherApp from "./weatherApp.js";
 import * as menu from "./menu.js";
 import * as saveDataLocalstorage from "./saveDataLocalstorage.js";
 import * as handelApp from "./handleApp.js";
-import { buildApp } from "./weatherApp.js";
 
 let controller = new AbortController();
 
@@ -69,16 +68,3 @@ function initSmartphoneStatus() {
   setInterval(updateClock, 1000);
 }
 initSmartphoneStatus();
-
-export function cardEventListener() {
-  const locationEL = document.querySelector(".locations");
-  const menuEl = document.querySelector(".menu");
-  locationEL.addEventListener("click", (event) => {
-    const clickedCard = event.target.closest(".locations__location");
-    if (!clickedCard) return;
-    const cityName = clickedCard.querySelector(".locations__city-name").textContent;
-
-    menuEl.classList.remove("is-active");
-    buildApp(cityName);
-  });
-}
