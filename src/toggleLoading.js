@@ -1,5 +1,5 @@
 import { fetchWeatherData } from "./apiFetch.js";
-import { city } from "./weatherApp.js";
+import { cityName } from "./weatherApp.js";
 
 export async function toggleLoading(isLoading, location = "") {
   const container = document.querySelector(".screen__container");
@@ -9,7 +9,7 @@ export async function toggleLoading(isLoading, location = "") {
     container.classList.add("is-loading");
     screenEL.classList.add("center");
 
-    if (titleCityEL && city) {
+    if (titleCityEL && cityName) {
       titleCityEL.innerText = `Lade Wetter für ${location}...`;
     } else {
       titleCityEL.innerText = `Lade Übersicht...`;

@@ -73,8 +73,6 @@ export function cardEventListener() {
   locationEL.addEventListener("click", (event) => {
     const clickedCard = event.target.closest(".locations__location");
     if (!clickedCard) return;
-
-    console.log(locationEL);
     const cityName = clickedCard.querySelector(".locations__city-name").textContent;
     console.log("Ausgewählte Stadt:", cityName);
     menuEl.classList.remove("is-active");

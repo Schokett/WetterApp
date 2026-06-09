@@ -8,22 +8,21 @@ import {
   buildCurrentStatisticsCards,
   initOverview,
 } from "./cityOverview.js";
-
-export function city() {
-  const city = "Osaka";
-  return city;
-}
+export let cityName = "Osaka";
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
 });
 
-export async function buildApp() {
+export async function buildApp(city = "osaka") {
+  cityName = city;
+  // clearOverview();
   let overviewActive = true;
-  if (city) {
-    toggleLoading(true, city());
+  if (cityName) {
+    toggleLoading(true, city);
   }
   try {
+    console.log(city);
     await locationDetailsWeatherEffects();
     initOverview();
     await buildCurrentWether();
