@@ -22,7 +22,6 @@ export async function buildApp(city = "osaka") {
     toggleLoading(true, city);
   }
   try {
-    console.log(city);
     await locationDetailsWeatherEffects(city);
     initOverview();
     await buildCurrentWether(city);

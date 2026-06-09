@@ -76,7 +76,6 @@ export function cardEventListener() {
     const cityName = clickedCard.querySelector(".locations__city-name").textContent;
 
     menuEl.classList.remove("is-active");
-    console.log("Stadt zum Laden:", cityName);
     buildApp(cityName);
   });
 }

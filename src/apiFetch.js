@@ -22,7 +22,6 @@ export async function fetchWeatherData({
 export async function locationDetailsWeatherEffects(city) {
   const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
   const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
-  console.log("hier", city);
   // 1. Uhrzeit und Wetter-Text extrahieren
   const localTimeHTML = apiDataCurrent.location.localtime;
   const timePart = localTimeHTML.split(" ")[1];
