@@ -1,6 +1,6 @@
 import { getSavedLocations } from "./saveDataLocalstorage.js";
 
-export function updateWeatherCardBackground(weatherCode, currentHour) {
+export function updateWeatherCardBackground(weatherCode, currentHour, element) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
   if (!weatherCode) {
     return;
@@ -64,10 +64,16 @@ export function updateWeatherCardBackground(weatherCode, currentHour) {
       : "linear-gradient(135deg, #6d7174 0%, #FFFFDC 100%)";
   }
 
-  const locationCard = document.querySelector(".locations__location");
-  if (locationCard) {
-    locationCard.style.setProperty("--backgroundWeatherCard", finalColor);
+  // const locationCard = document.querySelector(".locations__location");
+  // if (locationCard) {
+  //   locationCard.style.setProperty("--backgroundWeatherCard", finalColor);
+  // }
+
+  if (element) {
+    element.style.setProperty("--backgroundWeatherCard", finalColor);
   }
+
+  return finalColor;
 }
 updateWeatherCardBackground();
 
@@ -111,22 +117,39 @@ export async function displayHTML() {
 export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedLocations = await getSavedLocations();
-  // console.log(savedLocations.dataLocalStorage);
-  savedLocations.dataLocalStorage.forEach((item, index) => {
-    const html = `<div class="locations__location">
-              <div class="locations__container-top">
-                <div class="locations__city-info">
-                  <p class="locations__city-name">${item.locations.city}</p>
-                  <p class="locations__country-name">${item.locations.country}</p>
-                </div>
 
-                <p class="locations__temperature">${item.locations.temp_c}°</p>
-              </div>
-              <div class="locations__container">
-                <p class="locations__title">${item.locations.condition_text}</p>
-                <p class="locations__temperatureHighLow">H:${item.locations.maxtemp_c}° T:${item.locations.mintemp_c}°</p>
-              </div>
-            </div>`;
-    locations.innerHTML += html;
+  locations.innerHTML = ""; // Container leeren
+
+  savedLocations.dataLocalStorage.forEach((item) => {
+    console.log("Das komplette Item-Objekt:", item);
+    // 1. Element ERST erstellen
+    const card = document.createElement("div");
+    card.classList.add("locations__location");
+
+    // 2. Inhalt zuweisen
+    card.innerHTML = `
+      <div class="locations__container-top">
+        <div class="locations__city-info">
+          <p class="locations__city-name">${item.locations.city}</p>
+          <p class="locations__country-name">${item.locations.country}</p>
+        </div>
+        <p class="locations__temperature">${item.locations.temp_c}°</p>
+      </div>
+      <div class="locations__container">
+        <p class="locations__title">${item.locations.condition_text}</p>
+        <p class="locations__temperatureHighLow">H:${item.locations.maxtemp_c}° T:${item.locations.mintemp_c}°</p>
+      </div>
+    `;
+
+    // 3. Farbe ANWENDEN (mit dem existierenden 'card'-Element)
+    const weatherCode = item.locations.condition_code;
+    const currentHour = new Date().getHours();
+    const color = updateWeatherCardBackground(weatherCode, currentHour, card);
+
+    // 4. Jetzt erst zum DOM hinzufügen
+    locations.appendChild(card);
+
+    // 5. Log verwenden (jetzt mit der Variable 'color', die wir oben erhalten haben)
+    console.log("Code:", weatherCode, "Farbe:", color);
   });
 }
