@@ -9,6 +9,7 @@ import {
 import { toggleLoading } from "./toggleLoading.js";
 import { renderMenu } from "./handleApp.js";
 import { cityName } from "./weatherApp.js";
+import { saveFavoriteCity } from "./saveDataLocalstorage.js";
 
 export function initOverview() {
   const overviewContainer = document.querySelector(".app-content-scrollable");
@@ -49,6 +50,7 @@ export function initOverview() {
           <div class="current-statistics-container inline"></div>
   `;
   menuButton();
+  saveButton();
 }
 
 export async function buildCurrentWether(city) {
@@ -227,4 +229,21 @@ function menuButton() {
       renderMenu();
     });
   }
+}
+
+async function saveButton() {
+  document.addEventListener("click", (event) => {
+    const saveBtn = event.target.closest(".action-buttons__save");
+
+    if (saveBtn) {
+      const newCity = {
+        name: cityName,
+        savedAt: new Date().toISOString(),
+      };
+
+      saveFavoriteCity(newCity);
+
+      saveBtn.classList.add("is-saved");
+    }
+  });
 }
