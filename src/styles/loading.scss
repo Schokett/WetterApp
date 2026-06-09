@@ -93,37 +93,43 @@
   }
 }
 
+// loading.scss
+
 .loading-overlay {
-  display: none;
+  display: none; // MUSS HIER STEHEN! Sonst ist es immer sichtbar.
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
+
 .screen__container.is-loading .loading-overlay {
   display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
-  height: 100%;
+
   background-color: $backgroundcolor;
   position: absolute;
-  top: 0;
+
+  // Hier startet das Overlay erst unter der Notch (bei 45px)
+  top: 0px;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 20;
+
+  z-index: 1000; // Unter der Notch (3000), aber über dem Inhalt
   backdrop-filter: blur(5px);
-}
-.screen__container.is-loading .action-buttons,
-.screen__container.is-loading .current-weather {
-  display: none;
+  opacity: 1;
 }
 
+// Andere Elemente beim Laden ausblenden
 .screen__container.is-loading {
-  .smartphone-notch,
-  .smartphone-speaker,
-  .smartphone-camera {
+  .action-buttons,
+  .current-weather {
     display: none;
   }
 }
+
 .screen__container.center {
   display: flex;
   justify-content: center;
