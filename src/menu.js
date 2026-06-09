@@ -118,15 +118,14 @@ export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedLocations = await getSavedLocations();
 
-  locations.innerHTML = ""; // Container leeren
+  locations.innerHTML = "";
 
   savedLocations.dataLocalStorage.forEach((item) => {
-    console.log("Das komplette Item-Objekt:", item);
+    // console.log("Das komplette Item-Objekt:", item);
     // 1. Element ERST erstellen
     const card = document.createElement("div");
     card.classList.add("locations__location");
 
-    // 2. Inhalt zuweisen
     card.innerHTML = `
       <div class="locations__container-top">
         <div class="locations__city-info">
@@ -141,15 +140,12 @@ export async function displayData() {
       </div>
     `;
 
-    // 3. Farbe ANWENDEN (mit dem existierenden 'card'-Element)
     const weatherCode = item.locations.condition_code;
     const currentHour = new Date().getHours();
     const color = updateWeatherCardBackground(weatherCode, currentHour, card);
 
-    // 4. Jetzt erst zum DOM hinzufügen
     locations.appendChild(card);
 
-    // 5. Log verwenden (jetzt mit der Variable 'color', die wir oben erhalten haben)
-    console.log("Code:", weatherCode, "Farbe:", color);
+    // console.log("Code:", weatherCode, "Farbe:", color);
   });
 }

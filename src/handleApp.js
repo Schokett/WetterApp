@@ -7,7 +7,8 @@ import { toggleLoading } from "./toggleLoading.js";
 export async function renderMenu() {
   const menuEl = document.querySelector(".menu");
   try {
-    toggleLoading(false);
+    toggleLoading(true);
+    // await new Promise((resolve) => setTimeout(resolve, 600));
     menuEl.classList.add("is-active");
     clearOverview();
     displayHTML();
