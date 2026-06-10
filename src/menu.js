@@ -1,5 +1,6 @@
 import { getFavortiteCity } from "./saveDataLocalstorage.js";
 import { getlocationData, searchCity } from "./apiFetch.js";
+import { buildApp } from "./weatherApp.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour, element) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
@@ -78,9 +79,10 @@ export function updateWeatherCardBackground(weatherCode, currentHour, element) {
 }
 updateWeatherCardBackground();
 
-export async function displayHTML() {
+export function displayHTML() {
   const menu = document.querySelector(".menu");
-  menu.innerHTML = `<div class="menu__header">
+  menu.innerHTML = `
+  <div class="menu__header">
             <p class="menu__title">Städte verwalten</p>
             <button class="menu__config">
               <svg
@@ -94,6 +96,7 @@ export async function displayHTML() {
                   clip-rule="evenodd" />
               </svg>
             </button>
+            
           </div>
           <div class="menu__searchbar">
             <div class="search-box">
@@ -111,59 +114,74 @@ export async function displayHTML() {
               <input type="text" placeholder="Ort eingeben" class="search-box__input" />
             </div>
           </div>
+          
           <div class="locations"></div>
   `;
-  searchCityField();
-}
 
-export async function searchCityField() {
+  searchCityField();
+  deleteLocalstorageFavorit();
+}
+export function searchCityField() {
   const searchbarEL = document.querySelector(".menu__searchbar");
   const searchBox = document.querySelector(".search-box");
-  const weather = searchCity();
   const searchFieldEL = document.querySelector(".search-box__input");
 
   const suggestionList = document.createElement("div");
   suggestionList.className = "search-box__suggestions";
 
-  searchFieldEL.addEventListener("input", async (event) => {
-    const query = event.target.value;
+  searchbarEL.appendChild(suggestionList);
 
+  // CLICK AUF SUGGESTION
+  searchbarEL.addEventListener("click", (event) => {
+    const clickedItem = event.target.closest(".search-box__suggestion-item");
+    const menuEl = document.querySelector(".menu");
+    if (!clickedItem) return;
+
+    const cityName = clickedItem.dataset.name;
+
+    menuEl.classList.remove("is-active");
+    buildApp(cityName);
+    console.log(cityName);
+  });
+
+  // INPUT
+  searchFieldEL.addEventListener("input", async (event) => {
+    const query = event.target.value.trim();
+
+    // prüfen
+    if (!query) {
+      suggestionList.innerHTML = "";
+      searchFieldEL.classList.remove("search-is-active");
+      suggestionList.classList.remove("search-is-active");
+      return;
+    }
+
+    // DANACH API
     const suggestions = await searchCity(query);
 
-    console.log(suggestions);
     suggestionList.innerHTML = suggestions
-      // .map((city) => `<div class="search-box__suggestion-item">${city.name}, ${city.country}</div>`)
       .map(
         (city) => `
-    <div class="search-box__suggestion-item" data-name="${city.name}">
-      <span class="search-box__city-name">${city.name}</span>
-      <span class="search-box__city-country">${city.country}</span>
-    </div>`,
+          <div class="search-box__suggestion-item" data-name="${city.name}">
+            <span class="search-box__city-name">${city.name}</span>
+            <span class="search-box__city-country">${city.country}</span>
+          </div>
+        `,
       )
       .join("");
 
-    if (query) {
-      searchbarEL.appendChild(suggestionList);
-      searchFieldEL.classList.add("search-is-active");
-      suggestionList.classList.add("search-is-active");
-    } else {
-      searchbarEL.removeChild(suggestionList);
+    searchFieldEL.classList.add("search-is-active");
+    suggestionList.classList.add("search-is-active");
+  });
+
+  // CLICK OUTSIDE
+  document.addEventListener("click", (event) => {
+    if (!searchBox.contains(event.target) && !suggestionList.contains(event.target)) {
+      suggestionList.innerHTML = "";
+
       searchFieldEL.classList.remove("search-is-active");
       suggestionList.classList.remove("search-is-active");
     }
-
-    document.addEventListener("click", (event) => {
-      const isClickInside =
-        searchBox.contains(event.target) || suggestionList.contains(event.target);
-
-      if (!isClickInside) {
-        if (searchbarEL.contains(suggestionList)) {
-          searchbarEL.removeChild(suggestionList);
-        }
-        searchFieldEL.classList.remove("search-is-active");
-        suggestionList.classList.remove("search-is-active");
-      }
-    });
   });
 }
 
@@ -176,10 +194,13 @@ export async function displayData() {
   const weatherResults = await Promise.all(weatherPromises);
 
   weatherResults.forEach((item) => {
-    // 1. Element ERST erstellen
+    // 1. Haupt-Wrapper erstellen
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("locations__wrapper");
+
+    // 2. Card erstellen
     const card = document.createElement("div");
     card.classList.add("locations__location");
-
     card.innerHTML = `
       <div class="locations__container-top">
         <div class="locations__city-info">
@@ -192,12 +213,53 @@ export async function displayData() {
         <p class="locations__title">${item.conditionText}</p>
         <p class="locations__temperatureHighLow">H:${item.maxTemp}° T:${item.minTemp}°</p>
       </div>
-    `;
+  `;
 
+    // 3. Delete-Button erstellen
+    const deleteBtn = document.createElement("div");
+    deleteBtn.classList.add("locations__delete-btn");
+    deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="locations__svg">
+  <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+</svg>
+`;
+
+    // 4. Alles zusammenfügen
+    wrapper.appendChild(deleteBtn);
+    wrapper.appendChild(card);
+    locations.appendChild(wrapper);
+
+    //deleteBtn verstecken
+    deleteBtn.classList.add("is-active");
+
+    // Hintergrund-Logik
     const weatherCode = item.weatherCode;
     const currentHour = new Date().getHours();
-    const color = updateWeatherCardBackground(weatherCode, currentHour, card);
+    updateWeatherCardBackground(weatherCode, currentHour, card);
+  });
+}
 
-    locations.appendChild(card);
+export function deleteLocalstorageFavorit() {
+  document.addEventListener("click", (event) => {
+    const configBtn = event.target.closest(".menu__config");
+    const deleteBtn = event.target.closest(".locations__delete-btn");
+
+    if (configBtn) {
+      const deleteButtons = document.querySelectorAll(".locations__delete-btn");
+
+      const isHidden = deleteButtons[0]?.classList.contains("is-active");
+
+      deleteButtons.forEach((btn) => {
+        if (isHidden) {
+          btn.classList.remove("is-active");
+        } else {
+          btn.classList.add("is-active");
+        }
+      });
+      return;
+    }
+
+    if (deleteBtn) {
+      console.log("Lösche Element...");
+    }
   });
 }

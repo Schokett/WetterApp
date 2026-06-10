@@ -5,13 +5,14 @@ import { toggleLoading } from "./toggleLoading.js";
 
 export async function renderMenu() {
   const menuEl = document.querySelector(".menu");
+  const screenEL = document.querySelector(".screen__container");
   try {
     toggleLoading(true);
     // await new Promise((resolve) => setTimeout(resolve, 6000));
     menuEl.classList.add("is-active");
     clearOverview();
-    displayHTML();
-    displayData();
+    await displayHTML();
+    await displayData();
     cardEventListener();
   } catch (error) {
     if (screenEL) {
@@ -22,6 +23,7 @@ export async function renderMenu() {
   }
 }
 renderMenu();
+
 export function cardEventListener() {
   const locationEL = document.querySelector(".locations");
   const menuEl = document.querySelector(".menu");
