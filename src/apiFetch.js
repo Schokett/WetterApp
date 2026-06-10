@@ -19,6 +19,24 @@ export async function fetchWeatherData({
     console.log("message:", error);
   }
 }
+
+export async function searchCity(query) {
+  try {
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
+    const response = await fetch(
+      `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`,
+    );
+
+    if (!response.ok) throw new Error("Fehler bei der Suche");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Suche fehlgeschlagen:", error);
+    return [];
+  }
+}
+
 export async function locationDetailsWeatherEffects(city) {
   const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
   const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });

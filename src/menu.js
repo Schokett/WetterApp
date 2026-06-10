@@ -1,5 +1,5 @@
 import { getFavortiteCity } from "./saveDataLocalstorage.js";
-import { getlocationData } from "./apiFetch.js";
+import { getlocationData, searchCity } from "./apiFetch.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour, element) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
@@ -113,6 +113,41 @@ export async function displayHTML() {
           </div>
           <div class="locations"></div>
   `;
+  searchCityField();
+}
+
+export async function searchCityField() {
+  const searchbarEL = document.querySelector(".menu__searchbar");
+  const searchBox = document.querySelector(".search-box");
+  const weather = await searchCity();
+  const searchFieldEL = document.querySelector(".search-box__input");
+
+  const suggestionList = document.createElement("div");
+  suggestionList.className = "search-box__suggestions";
+
+  searchFieldEL.addEventListener("input", async (event) => {
+    const query = event.target.value;
+
+    const suggestions = await searchCity(query);
+
+    //resultContainer bauen und diesen dann befüllen
+    console.log(suggestions);
+    suggestionList.innerHTML = suggestions
+      .map((city) => `<div class="suggestion-item">${city.name}</div>`)
+      .join("");
+
+    if (query) {
+      searchbarEL.appendChild(suggestionList);
+      searchFieldEL.classList.add("search-is-active");
+      suggestionList.classList.add("search-is-active");
+    } else {
+      searchbarEL.removeChild(suggestionList);
+      searchFieldEL.classList.remove("search-is-active");
+      suggestionList.classList.remove("search-is-active");
+    }
+
+    // console.log(event.target.value);
+  });
 }
 
 export async function displayData() {
@@ -147,7 +182,5 @@ export async function displayData() {
     const color = updateWeatherCardBackground(weatherCode, currentHour, card);
 
     locations.appendChild(card);
-
-    // console.log("Code:", weatherCode, "Farbe:", color);
   });
 }
