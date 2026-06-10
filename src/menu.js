@@ -1,4 +1,5 @@
 import { getSavedLocations, getFavortiteCity } from "./saveDataLocalstorage.js";
+import { getlocationData } from "./apiFetch.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour, element) {
   let finalColor = "rgba(182, 54, 54, 0.2)"; // Fallback
@@ -117,11 +118,13 @@ export async function displayHTML() {
 export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedFavorites = await getFavortiteCity();
-  //savedFavorites muss noch das gesamte gerüst werden, mit allen werten die hier unten drin stehen. mometan ist es nur der Name und ein datum der erstellung!
-  locations.innerHTML = "";
+  const cityNames = savedFavorites.map((item) => item.name);
+  const weather = await getlocationData();
+  const weatherPromises = cityNames.map((name) => getlocationData(name));
+  const weatherResults = await Promise.all(weatherPromises);
+  console.log(weatherResults);
 
-  savedFavorites.forEach((item) => {
-    console.log("Das komplette Item-Objekt:", item);
+  weatherResults.forEach((item) => {
     // 1. Element ERST erstellen
     const card = document.createElement("div");
     card.classList.add("locations__location");
@@ -129,18 +132,18 @@ export async function displayData() {
     card.innerHTML = `
       <div class="locations__container-top">
         <div class="locations__city-info">
-          <p class="locations__city-name">${item.locations.city}</p>
-          <p class="locations__country-name">${item.locations.country}</p>
+          <p class="locations__city-name">${item.cityName}</p>
+          <p class="locations__country-name">${item.country}</p>
         </div>
-        <p class="locations__temperature">${item.locations.temp_c}°</p>
+        <p class="locations__temperature">${item.temp}°</p>
       </div>
       <div class="locations__container">
-        <p class="locations__title">${item.locations.condition_text}</p>
-        <p class="locations__temperatureHighLow">H:${item.locations.maxtemp_c}° T:${item.locations.mintemp_c}°</p>
+        <p class="locations__title">${item.conditionText}</p>
+        <p class="locations__temperatureHighLow">H:${item.maxTemp}° T:${item.minTemp}°</p>
       </div>
     `;
 
-    const weatherCode = item.locations.condition_code;
+    const weatherCode = item.weatherCode;
     const currentHour = new Date().getHours();
     const color = updateWeatherCardBackground(weatherCode, currentHour, card);
 

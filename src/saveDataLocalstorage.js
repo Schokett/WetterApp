@@ -65,6 +65,5 @@ export function saveFavoriteCity(cityData) {
 
 export function getFavortiteCity() {
   const storedData = localStorage.getItem("favoriteCities");
-  console.log(storedData);
   return storedData ? JSON.parse(storedData) : [];
 }

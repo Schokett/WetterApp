@@ -9,10 +9,8 @@ export async function toggleLoading(isLoading, location = "") {
 
     if (titleCityEL && location !== "") {
       titleCityEL.innerText = `Lade Wetter für ${location}...`;
-      console.log("lade stadt");
     } else {
       titleCityEL.innerText = `Lade Übersicht...`;
-      console.log("lade übersicht");
     }
   } else {
     container.classList.remove("is-loading");

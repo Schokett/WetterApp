@@ -37,6 +37,8 @@ export async function getlocationData(city) {
 
   const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
   const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;
+  const country = apiDataCurrent.location.country;
+  const weatherCode = apiDataCurrent.current.condition.code;
 
   return {
     cityName: apiDataCurrent.location.name,
@@ -44,6 +46,8 @@ export async function getlocationData(city) {
     conditionText: apiDataCurrent.current.condition.text,
     maxTemp: Math.round(apiDataForecast.forecast.forecastday[0].day.maxtemp_c),
     minTemp: Math.round(apiDataForecast.forecast.forecastday[0].day.mintemp_c),
+    country: apiDataCurrent.location.country,
+    weatherCode: apiDataCurrent.current.condition.code,
   };
 }
 export async function getForecastWeather(city) {
