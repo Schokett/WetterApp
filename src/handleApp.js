@@ -21,7 +21,7 @@ export async function renderMenu() {
     toggleLoading(false);
   }
 }
-
+renderMenu();
 export function cardEventListener() {
   const locationEL = document.querySelector(".locations");
   const menuEl = document.querySelector(".menu");

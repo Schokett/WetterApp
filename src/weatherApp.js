@@ -39,7 +39,6 @@ export async function buildApp(city = "osaka") {
   }
   return { overviewActive };
 }
-buildApp();
 export function clearOverview() {
   const overviewContainer = document.querySelector(".app-content-scrollable");
   if (overviewContainer) {

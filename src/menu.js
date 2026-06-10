@@ -122,7 +122,6 @@ export async function displayData() {
   const weather = await getlocationData();
   const weatherPromises = cityNames.map((name) => getlocationData(name));
   const weatherResults = await Promise.all(weatherPromises);
-  console.log(weatherResults);
 
   weatherResults.forEach((item) => {
     // 1. Element ERST erstellen
