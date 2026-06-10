@@ -1,4 +1,4 @@
-import { getSavedLocations, getFavortiteCity } from "./saveDataLocalstorage.js";
+import { getFavortiteCity } from "./saveDataLocalstorage.js";
 import { getlocationData } from "./apiFetch.js";
 
 export function updateWeatherCardBackground(weatherCode, currentHour, element) {
