@@ -26,9 +26,9 @@
   &__header {
     margin: 1.5rem 1rem 0 1rem;
     display: flex;
-    text-align: center;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 2rem;
   }
   &__title {
     font-size: 2rem;

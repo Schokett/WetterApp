@@ -117,9 +117,8 @@ export function displayHTML() {
           
           <div class="locations"></div>
   `;
-
+  deleteBtnDisplay();
   searchCityField();
-  deleteLocalstorageFavorit();
 }
 export function searchCityField() {
   const searchbarEL = document.querySelector(".menu__searchbar");
@@ -238,7 +237,11 @@ export async function displayData() {
   });
 }
 
-export function deleteLocalstorageFavorit() {
+function deleteBtnDisplay() {
+  if (document.body.dataset.hasDeleteListener === "true") {
+    return;
+  }
+
   document.addEventListener("click", (event) => {
     const configBtn = event.target.closest(".menu__config");
     const deleteBtn = event.target.closest(".locations__delete-btn");
@@ -259,7 +262,29 @@ export function deleteLocalstorageFavorit() {
     }
 
     if (deleteBtn) {
-      console.log("Lösche Element...");
+      deleteLocation();
     }
   });
+  document.body.dataset.hasDeleteListener = "true";
+}
+async function deleteLocation() {
+  const locationsCards = document.querySelectorAll(".locations__wrapper");
+
+  const clickedCard = event.target.closest(".locations__wrapper");
+
+  if (!clickedCard) return;
+
+  const nameElement = clickedCard.querySelector(".locations__city-name");
+  const cityName = nameElement ? nameElement.textContent.trim() : null;
+
+  if (cityName) {
+    const savedFavorites = await getFavortiteCity();
+    const savedCityNames = savedFavorites.map((item) => item.name);
+    const updatedFavorites = savedFavorites.filter((city) => city.name !== cityName);
+    console.log(cityName, savedCityNames);
+    console.log("Geklickte Stadt:", cityName);
+    localStorage.setItem("favoriteCities", JSON.stringify(updatedFavorites));
+
+    clickedCard.remove();
+  }
 }

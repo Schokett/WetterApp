@@ -10,7 +10,7 @@ export async function renderMenu() {
     toggleLoading(true);
     // await new Promise((resolve) => setTimeout(resolve, 6000));
     menuEl.classList.add("is-active");
-    clearOverview();
+    await clearOverview();
     await displayHTML();
     await displayData();
     cardEventListener();
