@@ -151,6 +151,19 @@ export async function searchCityField() {
       searchFieldEL.classList.remove("search-is-active");
       suggestionList.classList.remove("search-is-active");
     }
+
+    document.addEventListener("click", (event) => {
+      const isClickInside =
+        searchBox.contains(event.target) || suggestionList.contains(event.target);
+
+      if (!isClickInside) {
+        if (searchbarEL.contains(suggestionList)) {
+          searchbarEL.removeChild(suggestionList);
+        }
+        searchFieldEL.classList.remove("search-is-active");
+        suggestionList.classList.remove("search-is-active");
+      }
+    });
   });
 }
 
