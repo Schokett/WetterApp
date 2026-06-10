@@ -132,7 +132,14 @@ export async function searchCityField() {
 
     console.log(suggestions);
     suggestionList.innerHTML = suggestions
-      .map((city) => `<div class="suggestion-item">${city.name}</div>`)
+      // .map((city) => `<div class="search-box__suggestion-item">${city.name}, ${city.country}</div>`)
+      .map(
+        (city) => `
+    <div class="search-box__suggestion-item" data-name="${city.name}">
+      <span class="search-box__city-name">${city.name}</span>
+      <span class="search-box__city-country">${city.country}</span>
+    </div>`,
+      )
       .join("");
 
     if (query) {
