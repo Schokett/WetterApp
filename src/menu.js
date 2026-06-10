@@ -119,7 +119,7 @@ export async function displayHTML() {
 export async function searchCityField() {
   const searchbarEL = document.querySelector(".menu__searchbar");
   const searchBox = document.querySelector(".search-box");
-  const weather = await searchCity();
+  const weather = searchCity();
   const searchFieldEL = document.querySelector(".search-box__input");
 
   const suggestionList = document.createElement("div");
@@ -130,7 +130,6 @@ export async function searchCityField() {
 
     const suggestions = await searchCity(query);
 
-    //resultContainer bauen und diesen dann befüllen
     console.log(suggestions);
     suggestionList.innerHTML = suggestions
       .map((city) => `<div class="suggestion-item">${city.name}</div>`)
@@ -145,8 +144,6 @@ export async function searchCityField() {
       searchFieldEL.classList.remove("search-is-active");
       suggestionList.classList.remove("search-is-active");
     }
-
-    // console.log(event.target.value);
   });
 }
 
