@@ -53,13 +53,13 @@ export function initOverview() {
   saveButton();
 }
 
-export async function buildCurrentWether(city, Id) {
+export async function buildCurrentWether(Id) {
   console.log("buildCurrentWether", Id);
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
   try {
-    const weather = await getlocationData(city);
+    const weather = await getlocationData(Id);
 
     const div = document.createElement("div");
     div.classList.add("current-weather");

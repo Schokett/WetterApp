@@ -74,8 +74,8 @@ export async function getlocationData(id) {
     weatherCode: apiDataCurrent.current.condition.code,
   };
 }
-export async function getForecastWeather(city) {
-  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
+export async function getForecastWeather(id) {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: id });
   const weatherConditonData = apiDataForecast.forecast.forecastday[0].day.condition.text;
   const weatherWindData = apiDataForecast.forecast.forecastday[0].day.maxwind_kph;
 
@@ -83,8 +83,8 @@ export async function getForecastWeather(city) {
   return { forecastDescription };
 }
 
-export async function getForecastHours(city) {
-  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
+export async function getForecastHours(id) {
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: id });
   const weatherHoursData = apiDataForecast.forecast.forecastday[0].hour;
 
   //holt Eintrag der aktuell ist
