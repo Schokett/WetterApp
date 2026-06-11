@@ -239,10 +239,10 @@ async function saveButton() {
     if (saveBtn) {
       const newCity = {
         name: cityName,
-        savedAt: new Date().toISOString(), //Hier Id ergänzen
+        savedAt: new Date().toISOString(),
         id: cityId,
       };
-      console.log(newCity);
+      console.log("hier saved", newCity);
 
       saveFavoriteCity(newCity);
     }
