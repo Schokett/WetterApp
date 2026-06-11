@@ -185,6 +185,7 @@ export function searchCityField() {
 }
 
 export async function displayData() {
+  //hier ID zu renderMenu() übergeben
   const locations = document.querySelector(".locations");
   const savedFavorites = await getFavortiteCity();
   const cityNames = savedFavorites.map((item) => item.name);
@@ -205,6 +206,7 @@ export async function displayData() {
     // 2. Card erstellen
     const card = document.createElement("div");
     card.classList.add("locations__location");
+    card.dataset.id = item.id;
     card.innerHTML = `
       <div class="locations__container-top">
         <div class="locations__city-info">

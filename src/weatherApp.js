@@ -10,7 +10,7 @@ import {
   initOverview,
 } from "./cityOverview.js";
 export let cityName = "";
-export let cityId = "";
+export let cityId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
@@ -19,18 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
 export async function buildApp(city = "osaka", id = null) {
   cityName = city;
   cityId = id;
-  console.log("Baue App für:", cityName, "mit ID:", cityId);
+  console.log("buildapp ", id);
+
   let overviewActive = true;
   if (cityName) {
     toggleLoading(true, city);
   }
   try {
-    await locationDetailsWeatherEffects(city);
+    await locationDetailsWeatherEffects(city, cityId);
     initOverview();
-    await buildCurrentWether(city);
-    await buildForecastWeather(city);
-    await buildForecastThreeDay(city);
-    await buildCurrentStatisticsCards(city);
+    await buildCurrentWether(city, cityId);
+    await buildForecastWeather(city, cityId);
+    await buildForecastThreeDay(city, cityId);
+    await buildCurrentStatisticsCards(city, cityId);
     const saveBtn = document.querySelector(".action-buttons__save");
     if (saveBtn && isCityFavorite(cityName, cityId)) {
       saveBtn.style.display = "none";

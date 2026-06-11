@@ -1,7 +1,7 @@
 export function saveFavoriteCity(cityData) {
   const saveBtn = document.querySelector(".action-buttons__save");
   const favorites = JSON.parse(localStorage.getItem("favoriteCities") || "[]");
-  const exists = favorites.find((city) => city.name === cityData.name);
+  const exists = favorites.find((city) => city.id === cityData.id);
   const centerPositionEl = document.querySelector(".current-weather");
   if (!exists) {
     favorites.push(cityData);

@@ -1,4 +1,4 @@
-import { buildApp, clearOverview } from "./weatherApp";
+import { buildApp, cityId, clearOverview } from "./weatherApp";
 import { displayData, displayHTML } from "./menu.js";
 import { toggleLoading } from "./toggleLoading.js";
 //Menu Ansicht
@@ -13,7 +13,7 @@ export async function renderMenu() {
     await clearOverview();
     await displayHTML();
     await displayData();
-    cardEventListener();
+    await cardEventListener();
   } catch (error) {
     if (screenEL) {
       screenEL.innerHTML = "<p>Fehler beim Laden der Übersicht</p>";
@@ -33,6 +33,7 @@ export function cardEventListener() {
     const cityName = clickedCard.querySelector(".locations__city-name").textContent;
 
     menuEl.classList.remove("is-active");
-    buildApp(cityName);
+    console.log("card", cityName, cityId);
+    buildApp(cityName, cityId);
   });
 }

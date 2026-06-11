@@ -53,7 +53,8 @@ export function initOverview() {
   saveButton();
 }
 
-export async function buildCurrentWether(city) {
+export async function buildCurrentWether(city, Id) {
+  console.log("buildCurrentWether", Id);
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
@@ -92,7 +93,8 @@ export async function buildCurrentWether(city) {
   }
 }
 
-export async function buildForecastWeather(city) {
+export async function buildForecastWeather(city, Id) {
+  console.log("buildForecastWeather", Id);
   const weather = await getForecastWeather(city);
   const weatherHours = await getForecastHours(city);
   const forecastWeatherEL = document.querySelector(".forecast-weather");
@@ -140,7 +142,8 @@ export async function buildForecastWeather(city) {
     }
   });
 }
-export async function buildForecastThreeDay(city) {
+export async function buildForecastThreeDay(city, Id) {
+  console.log("buildForecastThreeDay", Id);
   const weatherData = await getForcastThreeDays(city);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
@@ -178,7 +181,8 @@ export async function buildForecastThreeDay(city) {
   });
 }
 
-export async function buildCurrentStatisticsCards(city) {
+export async function buildCurrentStatisticsCards(city, Id) {
+  console.log("buildCurrentStatisticsCards", Id);
   const apiData = await getCurrentStatisticsData(city);
   const currentStatisticsEL = document.querySelector(".current-statistics");
 
@@ -246,7 +250,6 @@ async function saveButton() {
 
       saveFavoriteCity(newCity);
     }
-
     saveBtn.classList.add("is-saved");
   });
   isSaveListenerActive = true;
