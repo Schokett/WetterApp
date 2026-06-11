@@ -1,4 +1,5 @@
 import { initWeatherBackground, updateWeatherBackground } from "./weatherEffects.js";
+import { isCityFavorite } from "./saveDataLocalstorage.js";
 import { toggleLoading } from "./toggleLoading.js";
 import { fetchWeatherData, locationDetailsWeatherEffects } from "./apiFetch.js";
 import {
@@ -30,6 +31,10 @@ export async function buildApp(city = "osaka", id = null) {
     await buildForecastWeather(city);
     await buildForecastThreeDay(city);
     await buildCurrentStatisticsCards(city);
+    const saveBtn = document.querySelector(".action-buttons__save");
+    if (saveBtn && isCityFavorite(cityName, cityId)) {
+      saveBtn.style.display = "none";
+    }
   } catch (error) {
     const screenEL = document.querySelector(".screen__container");
     if (screenEL) {

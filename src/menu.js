@@ -218,7 +218,6 @@ export async function displayData() {
         <p class="locations__temperatureHighLow">H:${item.maxTemp}° T:${item.minTemp}°</p>
       </div>
   `;
-    console.log(weatherResults);
 
     // 3. Delete-Button erstellen
     const deleteBtn = document.createElement("div");
@@ -284,13 +283,17 @@ async function deleteLocation() {
   const cityName = nameElement ? nameElement.textContent.trim() : null;
 
   if (cityName) {
-    const savedFavorites = await getFavortiteCity();
-    const savedCityNames = savedFavorites.map((item) => item.name);
-    const updatedFavorites = savedFavorites.filter((city) => city.name !== cityName);
-    console.log(cityName, savedCityNames);
-    console.log("Geklickte Stadt:", cityName);
-    localStorage.setItem("favoriteCities", JSON.stringify(updatedFavorites));
+    const clickedCard = event.target.closest(".locations__wrapper");
 
-    clickedCard.remove();
+    const nameElement = clickedCard.querySelector(".locations__city-name");
+    const cityId = nameElement ? nameElement.dataset.id : null;
+
+    if (cityId) {
+      const savedFavorites = await getFavortiteCity();
+      const updatedFavorites = savedFavorites.filter((city) => city.id !== cityId);
+
+      localStorage.setItem("favoriteCities", JSON.stringify(updatedFavorites));
+      clickedCard.remove();
+    }
   }
 }
