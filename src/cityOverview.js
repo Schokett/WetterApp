@@ -245,9 +245,9 @@ async function saveButton() {
       console.log(newCity);
 
       saveFavoriteCity(newCity);
-
-      saveBtn.classList.add("is-saved");
     }
+
+    saveBtn.classList.add("is-saved");
   });
   isSaveListenerActive = true;
 }
