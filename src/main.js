@@ -15,24 +15,26 @@ import * as handelApp from "./handleApp.js";
 
 let controller = new AbortController();
 
-if (!window.hasThemeListener) {
-  window.hasThemeListener = true;
+const bodyEL = document.querySelector("body");
+const savedTheme = localStorage.getItem("theme");
+const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  document.addEventListener("click", (event) => {
-    const btn = event.target.closest("#theme-toggle");
-
-    if (btn) {
-      const bodyEL = document.querySelector("body");
-      bodyEL.classList.toggle("darkmode");
-
-      const isDark = bodyEL.classList.contains("darkmode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-
-      console.log("Button geklickt! Status:", isDark ? "dark" : "light");
-      btn.blur();
-    }
-  });
+if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+  bodyEL.classList.add("darkmode");
+} else {
+  bodyEL.classList.remove("darkmode");
 }
+
+document.addEventListener("click", (event) => {
+  const btn = event.target.closest("#theme-toggle");
+  if (btn) {
+    bodyEL.classList.toggle("darkmode");
+    const isDark = bodyEL.classList.contains("darkmode");
+
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    btn.blur();
+  }
+});
 
 function initSmartphoneStatus() {
   const infoContainer = document.querySelector(".smartphone-info");
