@@ -185,13 +185,12 @@ export function searchCityField() {
 }
 
 export async function displayData() {
-  //hier ID zu renderMenu() übergeben
   const locations = document.querySelector(".locations");
   const savedFavorites = await getFavortiteCity();
   const cityNames = savedFavorites.map((item) => item.name);
   // const weatherPromises = cityNames.map((name) => getlocationData(name));
   const weatherPromises = savedFavorites.map(async (cityObj) => {
-    const weatherData = await getlocationData(cityObj.name);
+    const weatherData = await getlocationData(cityObj.id);
     return {
       ...weatherData,
       id: cityObj.id,

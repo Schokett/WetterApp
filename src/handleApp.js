@@ -1,4 +1,4 @@
-import { buildApp, cityId, clearOverview } from "./weatherApp";
+import { buildApp, clearOverview } from "./weatherApp";
 import { displayData, displayHTML } from "./menu.js";
 import { toggleLoading } from "./toggleLoading.js";
 //Menu Ansicht
@@ -31,9 +31,10 @@ export function cardEventListener() {
     const clickedCard = event.target.closest(".locations__location");
     if (!clickedCard) return;
     const cityName = clickedCard.querySelector(".locations__city-name").textContent;
+    const cityId = clickedCard.querySelector(".locations__city-name").dataset.id;
 
     menuEl.classList.remove("is-active");
-    console.log("card", cityName, cityId);
+    console.log("card", cityName);
     buildApp(cityName, cityId);
   });
 }

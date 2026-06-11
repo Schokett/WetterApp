@@ -26,12 +26,12 @@ export async function buildApp(city = "osaka", id = null) {
     toggleLoading(true, city);
   }
   try {
-    await locationDetailsWeatherEffects(city, cityId);
+    await locationDetailsWeatherEffects(cityId);
     initOverview();
-    await buildCurrentWether(city, cityId);
-    await buildForecastWeather(city, cityId);
-    await buildForecastThreeDay(city, cityId);
-    await buildCurrentStatisticsCards(city, cityId);
+    await buildCurrentWether(cityId);
+    await buildForecastWeather(cityId);
+    await buildForecastThreeDay(cityId);
+    await buildCurrentStatisticsCards(cityId);
     const saveBtn = document.querySelector(".action-buttons__save");
     if (saveBtn && isCityFavorite(cityName, cityId)) {
       saveBtn.style.display = "none";

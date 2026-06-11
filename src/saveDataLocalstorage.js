@@ -41,6 +41,6 @@ export function getFavortiteCity() {
 
 export function isCityFavorite(cityName, cityId) {
   const favorites = getFavortiteCity();
-  console.log(cityName, cityId);
+  console.log("isCityFavorite", cityName, cityId);
   return favorites.some((city) => city.name === cityName && city.id === cityId);
 }

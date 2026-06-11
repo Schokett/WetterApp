@@ -42,10 +42,10 @@ export async function searchCity(query) {
   }
 }
 
-export async function locationDetailsWeatherEffects(city, Id) {
+export async function locationDetailsWeatherEffects(Id) {
   console.log("locationDetailsWeatherEffects", Id);
-  const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
-  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
+  const apiDataCurrent = await fetchWeatherData({ type: "current", location: Id });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: Id });
   // 1. Uhrzeit und Wetter-Text extrahieren
   const localTimeHTML = apiDataCurrent.location.localtime;
   const timePart = localTimeHTML.split(" ")[1];
@@ -55,9 +55,9 @@ export async function locationDetailsWeatherEffects(city, Id) {
   updateWeatherCardBackground(weatherCode, currentHour);
 }
 
-export async function getlocationData(city) {
-  const apiDataCurrent = await fetchWeatherData({ type: "current", location: city });
-  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: city });
+export async function getlocationData(id) {
+  const apiDataCurrent = await fetchWeatherData({ type: "current", location: id });
+  const apiDataForecast = await fetchWeatherData({ type: "forecast", location: id });
 
   const maxTemp = apiDataForecast.forecast.forecastday[0].day.maxtemp_c;
   const minTemp = apiDataForecast.forecast.forecastday[0].day.mintemp_c;

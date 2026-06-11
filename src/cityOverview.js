@@ -93,10 +93,10 @@ export async function buildCurrentWether(city, Id) {
   }
 }
 
-export async function buildForecastWeather(city, Id) {
+export async function buildForecastWeather(Id) {
   console.log("buildForecastWeather", Id);
-  const weather = await getForecastWeather(city);
-  const weatherHours = await getForecastHours(city);
+  const weather = await getForecastWeather(Id);
+  const weatherHours = await getForecastHours(Id);
   const forecastWeatherEL = document.querySelector(".forecast-weather");
 
   const p = document.createElement("p");
@@ -142,9 +142,9 @@ export async function buildForecastWeather(city, Id) {
     }
   });
 }
-export async function buildForecastThreeDay(city, Id) {
+export async function buildForecastThreeDay(Id) {
   console.log("buildForecastThreeDay", Id);
-  const weatherData = await getForcastThreeDays(city);
+  const weatherData = await getForcastThreeDays(Id);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
   const pTitle = document.createElement("p");
@@ -181,9 +181,9 @@ export async function buildForecastThreeDay(city, Id) {
   });
 }
 
-export async function buildCurrentStatisticsCards(city, Id) {
+export async function buildCurrentStatisticsCards(Id) {
   console.log("buildCurrentStatisticsCards", Id);
-  const apiData = await getCurrentStatisticsData(city);
+  const apiData = await getCurrentStatisticsData(Id);
   const currentStatisticsEL = document.querySelector(".current-statistics");
 
   const currentStatisticsCard = `<div class="current-statistics__card">
