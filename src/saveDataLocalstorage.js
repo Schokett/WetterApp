@@ -1,4 +1,5 @@
 export function saveFavoriteCity(cityData) {
+  console.trace("saveFavoriteCity wurde aufgerufen von:");
   const favorites = JSON.parse(localStorage.getItem("favoriteCities") || "[]");
 
   const exists = favorites.find((city) => city.name === cityData.name);
@@ -7,7 +8,7 @@ export function saveFavoriteCity(cityData) {
     favorites.push(cityData);
 
     localStorage.setItem("favoriteCities", JSON.stringify(favorites));
-    alert("Stadt hinzugefügt:", cityData);
+    alert("Stadt hinzugefügt");
   } else {
     alert("Stadt ist bereits in den Favoriten.");
   }

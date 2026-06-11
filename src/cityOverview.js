@@ -230,8 +230,9 @@ function menuButton() {
     });
   }
 }
-
+let isSaveListenerActive = false;
 async function saveButton() {
+  if (isSaveListenerActive) return;
   document.addEventListener("click", (event) => {
     const saveBtn = event.target.closest(".action-buttons__save");
 
@@ -248,4 +249,5 @@ async function saveButton() {
       saveBtn.classList.add("is-saved");
     }
   });
+  isSaveListenerActive = true;
 }

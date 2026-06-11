@@ -188,8 +188,14 @@ export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedFavorites = await getFavortiteCity();
   const cityNames = savedFavorites.map((item) => item.name);
-  // const weather = await getlocationData();
-  const weatherPromises = cityNames.map((name) => getlocationData(name));
+  // const weatherPromises = cityNames.map((name) => getlocationData(name));
+  const weatherPromises = savedFavorites.map(async (cityObj) => {
+    const weatherData = await getlocationData(cityObj.name);
+    return {
+      ...weatherData,
+      id: cityObj.id,
+    };
+  });
   const weatherResults = await Promise.all(weatherPromises);
   weatherResults.forEach((item) => {
     // 1. Haupt-Wrapper erstellen
@@ -212,6 +218,7 @@ export async function displayData() {
         <p class="locations__temperatureHighLow">H:${item.maxTemp}° T:${item.minTemp}°</p>
       </div>
   `;
+    console.log(weatherResults);
 
     // 3. Delete-Button erstellen
     const deleteBtn = document.createElement("div");
