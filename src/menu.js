@@ -136,11 +136,11 @@ export function searchCityField() {
     const menuEl = document.querySelector(".menu");
     if (!clickedItem) return;
 
+    const cityId = clickedItem.dataset.id;
     const cityName = clickedItem.dataset.name;
 
     menuEl.classList.remove("is-active");
-    buildApp(cityName);
-    console.log(cityName);
+    buildApp(cityName, cityId);
   });
 
   // INPUT
@@ -161,7 +161,7 @@ export function searchCityField() {
     suggestionList.innerHTML = suggestions
       .map(
         (city) => `
-          <div class="search-box__suggestion-item" data-name="${city.name}">
+          <div class="search-box__suggestion-item" data-id="${city.id}" data-name="${city.name}">
             <span class="search-box__city-name">${city.name}</span>
             <span class="search-box__city-country">${city.country}</span>
           </div>
@@ -188,10 +188,9 @@ export async function displayData() {
   const locations = document.querySelector(".locations");
   const savedFavorites = await getFavortiteCity();
   const cityNames = savedFavorites.map((item) => item.name);
-  const weather = await getlocationData();
+  // const weather = await getlocationData();
   const weatherPromises = cityNames.map((name) => getlocationData(name));
   const weatherResults = await Promise.all(weatherPromises);
-
   weatherResults.forEach((item) => {
     // 1. Haupt-Wrapper erstellen
     const wrapper = document.createElement("div");
@@ -203,7 +202,7 @@ export async function displayData() {
     card.innerHTML = `
       <div class="locations__container-top">
         <div class="locations__city-info">
-          <p class="locations__city-name">${item.cityName}</p>
+          <p class="locations__city-name" data-id="${item.id}">${item.cityName}</p>
           <p class="locations__country-name">${item.country}</p>
         </div>
         <p class="locations__temperature">${item.temp}°</p>

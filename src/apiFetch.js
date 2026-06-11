@@ -10,9 +10,12 @@ export async function fetchWeatherData({
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const queryParams = type === "forecast" ? `&days=${day}` : "";
 
+    const query = /^\d+$/.test(location) ? `id:${location}` : location;
+
     const response = await fetch(
-      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${location}${queryParams}&lang=de`,
+      `https://api.weatherapi.com/v1/${type}.json?key=${apiKey}&q=${query}${queryParams}&lang=de`,
     );
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -31,7 +34,8 @@ export async function searchCity(query) {
 
     if (!response.ok) throw new Error("Fehler bei der Suche");
 
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Suche fehlgeschlagen:", error);
     return [];

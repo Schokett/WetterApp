@@ -8,7 +8,7 @@ import {
 } from "./apiFetch.js";
 import { toggleLoading } from "./toggleLoading.js";
 import { renderMenu } from "./handleApp.js";
-import { cityName } from "./weatherApp.js";
+import { cityId, cityName } from "./weatherApp.js";
 import { saveFavoriteCity } from "./saveDataLocalstorage.js";
 
 export function initOverview() {
@@ -238,8 +238,10 @@ async function saveButton() {
     if (saveBtn) {
       const newCity = {
         name: cityName,
-        savedAt: new Date().toISOString(),
+        savedAt: new Date().toISOString(), //Hier Id ergänzen
+        id: cityId,
       };
+      console.log(newCity);
 
       saveFavoriteCity(newCity);
 

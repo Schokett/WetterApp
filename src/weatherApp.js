@@ -9,14 +9,16 @@ import {
   initOverview,
 } from "./cityOverview.js";
 export let cityName = "";
+export let cityId = "";
 
 document.addEventListener("DOMContentLoaded", () => {
   initWeatherBackground();
 });
 
-export async function buildApp(city = "osaka") {
+export async function buildApp(city = "osaka", id = null) {
   cityName = city;
-  // clearOverview();
+  cityId = id;
+  console.log("Baue App für:", cityName, "mit ID:", cityId);
   let overviewActive = true;
   if (cityName) {
     toggleLoading(true, city);

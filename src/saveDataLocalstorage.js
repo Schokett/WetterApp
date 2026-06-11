@@ -7,9 +7,9 @@ export function saveFavoriteCity(cityData) {
     favorites.push(cityData);
 
     localStorage.setItem("favoriteCities", JSON.stringify(favorites));
-    console.log("Stadt hinzugefügt:", cityData);
+    alert("Stadt hinzugefügt:", cityData);
   } else {
-    console.log("Stadt ist bereits in den Favoriten.");
+    alert("Stadt ist bereits in den Favoriten.");
   }
 }
 
