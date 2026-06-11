@@ -24,6 +24,7 @@ export async function fetchWeatherData({
 }
 
 export async function searchCity(query) {
+  console.log("ist reingekommen");
   try {
     if (!query) return [];
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;

@@ -120,6 +120,17 @@ export function displayHTML() {
   deleteBtnDisplay();
   searchCityField();
 }
+
+function debounce(func, delay) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
 export function searchCityField() {
   const searchbarEL = document.querySelector(".menu__searchbar");
   const searchBox = document.querySelector(".search-box");
@@ -144,7 +155,8 @@ export function searchCityField() {
   });
 
   // INPUT
-  searchFieldEL.addEventListener("input", async (event) => {
+  const handleInput = debounce(async (event) => {
+    // searchFieldEL.addEventListener("input", async (event) => {
     const query = event.target.value.trim();
 
     // prüfen
@@ -171,7 +183,9 @@ export function searchCityField() {
 
     searchFieldEL.classList.add("search-is-active");
     suggestionList.classList.add("search-is-active");
-  });
+  }, 300);
+
+  searchFieldEL.addEventListener("input", handleInput);
 
   // CLICK OUTSIDE
   document.addEventListener("click", (event) => {
