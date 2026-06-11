@@ -20,7 +20,6 @@ export function saveFavoriteCity(cityData) {
     `;
 
     centerPositionEl.appendChild(toast);
-    console.log(toast);
 
     //start animation toast
     setTimeout(() => toast.classList.add("show"), 10);
@@ -41,6 +40,5 @@ export function getFavortiteCity() {
 
 export function isCityFavorite(cityName, cityId) {
   const favorites = getFavortiteCity();
-  console.log("isCityFavorite", cityName, cityId);
   return favorites.some((city) => city.name === cityName && city.id === cityId);
 }

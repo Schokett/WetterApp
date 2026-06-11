@@ -54,7 +54,6 @@ export function initOverview() {
 }
 
 export async function buildCurrentWether(Id) {
-  console.log("buildCurrentWether", Id);
   const currentWetherEl = document.querySelector(".current-weather");
   const screenEL = document.querySelector(".screen__container");
 
@@ -94,7 +93,6 @@ export async function buildCurrentWether(Id) {
 }
 
 export async function buildForecastWeather(Id) {
-  console.log("buildForecastWeather", Id);
   const weather = await getForecastWeather(Id);
   const weatherHours = await getForecastHours(Id);
   const forecastWeatherEL = document.querySelector(".forecast-weather");
@@ -143,7 +141,6 @@ export async function buildForecastWeather(Id) {
   });
 }
 export async function buildForecastThreeDay(Id) {
-  console.log("buildForecastThreeDay", Id);
   const weatherData = await getForcastThreeDays(Id);
 
   const forecastThreeDayEl = document.querySelector(".forecast-threeDay");
@@ -182,7 +179,6 @@ export async function buildForecastThreeDay(Id) {
 }
 
 export async function buildCurrentStatisticsCards(Id) {
-  console.log("buildCurrentStatisticsCards", Id);
   const apiData = await getCurrentStatisticsData(Id);
   const currentStatisticsEL = document.querySelector(".current-statistics");
 
@@ -246,7 +242,6 @@ async function saveButton() {
         savedAt: new Date().toISOString(),
         id: cityId,
       };
-      console.log("hier saved", newCity);
       saveBtn.classList.add("is-saved");
       saveFavoriteCity(newCity);
     }

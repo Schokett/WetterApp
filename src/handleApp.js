@@ -8,7 +8,6 @@ export async function renderMenu() {
   const screenEL = document.querySelector(".screen__container");
   try {
     toggleLoading(true);
-    // await new Promise((resolve) => setTimeout(resolve, 6000));
     menuEl.classList.add("is-active");
     await clearOverview();
     await displayHTML();
@@ -34,7 +33,6 @@ export function cardEventListener() {
     const cityId = clickedCard.querySelector(".locations__city-name").dataset.id;
 
     menuEl.classList.remove("is-active");
-    console.log("card", cityName);
     buildApp(cityName, cityId);
   });
 }

@@ -43,7 +43,6 @@ export async function searchCity(query) {
 }
 
 export async function locationDetailsWeatherEffects(Id) {
-  console.log("locationDetailsWeatherEffects", Id);
   const apiDataCurrent = await fetchWeatherData({ type: "current", location: Id });
   const apiDataForecast = await fetchWeatherData({ type: "forecast", location: Id });
   // 1. Uhrzeit und Wetter-Text extrahieren

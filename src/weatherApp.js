@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 export async function buildApp(city = "osaka", id = null) {
   cityName = city;
   cityId = id;
-  console.log("buildapp ", id);
 
   let overviewActive = true;
   if (cityName) {
